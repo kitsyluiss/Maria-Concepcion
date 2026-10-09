@@ -477,14 +477,13 @@ main {
 
 .hero__portrait-col {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
+  margin: auto;
   height: 86vh;
   width: 80vw;
   z-index: 20;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   pointer-events: auto;
 }
@@ -501,8 +500,9 @@ main {
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .hero__gradient {
@@ -1102,8 +1102,9 @@ main {
 }
 
 .liquid-image__img--hero {
-  object-position: center bottom;
+  object-position: center center;
   object-fit: contain;
+  margin: 0 auto;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
 }
 
