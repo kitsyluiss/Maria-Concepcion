@@ -1,0 +1,32 @@
+export const pressReviews = [
+  {
+    index: '01',
+    publication: 'Rolling Stone',
+    type: 'Album Review',
+    quote: 'Maria Concepcion delivers an undeniable masterclass in modern pop: dark, intoxicating, and vocally unmatched.',
+    image: '/images/singing.jpeg',
+    filterId: 'liquid-p1',
+    dispId: 'disp-p1',
+    alt: 'Maria Concepcion performing live with microphone under stage lighting',
+  },
+  {
+    index: '02',
+    publication: 'Pitchfork',
+    type: 'Live Feature',
+    quote: 'A magnetic stage presence and singular production voice that proves alternative pop has found its next great auteur.',
+    image: '/images/portrait standing.jpeg',
+    filterId: 'liquid-p2',
+    dispId: 'disp-p2',
+    alt: 'Maria Concepcion standing in dramatic editorial studio portrait',
+  },
+  {
+    index: '03',
+    publication: 'Billboard',
+    type: 'Emerging Artist Spotlight',
+    quote: 'The kind of generational vocal power and visual worldbuilding that turns concerts into religious experiences.',
+    image: '/images/portrait.jpeg',
+    filterId: 'liquid-p3',
+    dispId: 'disp-p3',
+    alt: 'Maria Concepcion intense close-up portrait',
+  },
+];

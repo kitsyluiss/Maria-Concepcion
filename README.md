@@ -1,88 +1,106 @@
 # Maria Concepcion — Official Electronic Press Kit (EPK)
 
-An Awwwards-tier, editorial Electronic Press Kit and portfolio for dark electronic pop artist **Maria Concepcion**. Engineered with cinematic spatial rhythm, fluid SVG liquid displacement shaders, responsive typography, interactive Web Audio track stems, and smooth scroll physics.
+An Awwwards-tier, editorial Electronic Press Kit and portfolio for dark electronic pop artist **Maria Concepcion**. Engineered with Next.js, Framer Motion, Tailwind CSS, fluid SVG liquid displacement shaders, interactive Web Audio track stems, and smooth scroll physics.
 
 ---
 
-## 🌟 Visual & Technical Highlights
+## 🌟 Visual & Architectural Features
 
-- **Hero Portrait Cutout**: Custom-applied high-resolution RGBA portrait (`Maria Concepcion portrait.png`) layered over dynamic typographic reveals and liquid displacement shaders.
-- **Real Stage & Editorial Photography**: Integrated photography from the `images/` archive (`singing.jpeg`, `portrait standing.jpeg`, and `portrait.jpeg`) across the critical press acclaim engine.
-- **Liquid Shader Micro-Interactions**: Custom SVG `<feTurbulence>` and `<feDisplacementMap>` interactive shaders animating fluid ripples across album covers, press photos, and the hero portrait on mouse hover.
-- **Interactive Web Audio Synthesizer**: In-browser audio engine with ambient soundscape toggles and dark synth-pop previews for each release (*Neon Requiem*, *Midnight Transmission*, *Afterglow*, *Subterranean*).
+- **Segmented Next.js Architecture**: Every section and process is broken down into modular, single-responsibility components under `components/` and `app/`.
+- **Outline-Only Liquid Distortion**: Integrated SVG `<feMorphology>` edge-isolation filter (`LiquidShaderDef.jsx`) combined with `<feDisplacementMap>`. When hovered/cursored over `Maria Concepcion portrait.png`, **only the character's perimeter silhouette outline ripples** — keeping facial features and interior clothing 100% sharp while preventing any rectangular box artifacts.
+- **Framer Motion Micro-Interactions**: Declarative spring physics, staggered typographic letter entrance reveals, AnimatePresence mobile drawer transitions, and word-by-word press quote reveals.
+- **Real Stage & Editorial Photography**: Integrated photography from the `public/images/` archive (`singing.jpeg`, `portrait standing.jpeg`, and `portrait.jpeg`) across the critical press acclaim engine.
+- **Interactive Web Audio Synthesizer**: In-browser audio engine hook (`useAudioEngine.js`) providing ambient soundscape toggles and dark synth-pop previews for each release (*Neon Requiem*, *Midnight Transmission*, *Afterglow*, *Subterranean*).
 - **Smooth Momentum Scrolling**: Hardware-accelerated smooth scrolling with [Lenis](https://lenis.darkroom.engineering/) and a zero-dependency local fallback for offline previews.
-- **Adaptive REM Grid**: Fluid responsive viewport calculations calibrated from mobile to 4K ultra-wide monitors.
-- **Editorial Typography Scale**: Bespoke pairing of `Anton` for brutalist headline impact and `Onest` for clean editorial readability.
 
 ---
 
-## 📁 Project Structure
+## 📁 Segmented Codebase Structure
 
 ```
 mariaaaa/
-├── index.html                     # Main semantic EPK entrypoint
-├── package.json                   # Project metadata and Vite scripts
-├── vite.config.js                 # Vite development & build configuration
-├── .gitignore                     # Git ignore rules
-├── README.md                      # Project documentation
-├── css/
-│   └── style.css                  # Tokenized design system & animations
-├── js/
-│   ├── main.js                    # Core logic, preloader, observers, shaders
-│   ├── audio-engine.js            # Web Audio API dark synth-pop stem generator
-│   └── lenis-local.js             # Resilient offline smooth scroll fallback
+├── app/
+│   ├── layout.jsx                 # Root layout with Google Fonts (Anton & Onest) and metadata
+│   ├── page.jsx                   # Main client page composing all sections
+│   └── globals.css                # Tailwind directives, CSS tokens, and rem scaling
+│
+├── components/
+│   ├── hero/
+│   │   ├── Hero.jsx               # Hero section, roles reveal, big name staggered typography
+│   │   ├── HeroPortrait.jsx       # Hero portrait with edge-isolated outline displacement
+│   │   └── LiquidShaderDef.jsx    # SVG filters (<feMorphology> edge band, <feDisplacementMap>)
+│   ├── nav/
+│   │   ├── Header.jsx             # Fixed header with monogram logo & desktop nav links
+│   │   ├── SoundToggle.jsx        # Audio experience toggle with animated equalizer bars
+│   │   └── MobileDrawer.jsx       # AnimatePresence slide-in mobile navigation drawer
+│   ├── preloader/
+│   │   └── Preloader.jsx          # 0-100% ease-out counter with Framer Motion slide-up wipe
+│   ├── marquee/
+│   │   └── Marquee.jsx            # Infinite hardware-accelerated sonic identity ticker
+│   ├── bio/
+│   │   ├── Bio.jsx                # Artistry narrative grid
+│   │   └── PillarItem.jsx         # Individual pillar cards with staggered scroll reveal
+│   ├── discography/
+│   │   ├── Discography.jsx        # Discography header and asymmetric release grid
+│   │   ├── ReleaseCard.jsx        # Release card with play button, liquid hover & badges
+│   │   └── releasesData.js        # Discography release items & metadata
+│   ├── stats/
+│   │   ├── Stats.jsx              # By the numbers grid
+│   │   └── StatItem.jsx           # Individual stat figure with hover transitions
+│   ├── press/
+│   │   ├── Press.jsx              # Press review container & photo switcher
+│   │   ├── PressQuote.jsx         # Dynamic word-by-word staggered reveal quote
+│   │   ├── PressSelector.jsx      # Interactive quote selector tabs with active lines
+│   │   └── pressData.js           # Review quotes and real photography references
+│   ├── footer/
+│   │   ├── Footer.jsx             # Booking CTA, representation, socials & copyright
+│   │   └── CopyEmailBtn.jsx       # Tactile email interaction with copy feedback tooltip
+│   └── audio/
+│       └── useAudioEngine.js      # Web Audio API hook for dark synth drones & stems
+│
+├── hooks/
+│   └── useSmoothScroll.js         # Lenis smooth scroll hook for Next.js
+│
 ├── public/
 │   ├── favicon.svg                # Minimalist MC monogram icon
-│   ├── images/
-│   │   ├── Maria Concepcion portrait.png  # Hero cutout portrait (RGBA)
-│   │   ├── singing.jpeg                   # Live performance photo (Press 01)
-│   │   ├── portrait standing.jpeg         # Editorial standing photo (Press 02)
-│   │   ├── portrait.jpeg                  # Close-up portrait (Press 03)
-│   │   └── releases/                      # Album cover artwork vector/raster assets
-│   │       ├── release-01.svg             # Neon Requiem (2024 Studio Album)
-│   │       ├── release-02.svg             # Midnight Transmission (2022 EP)
-│   │       ├── release-03.svg             # Afterglow (2021 Lead Single)
-│   │       └── release-04.svg             # Subterranean (2019 Debut Album)
-│   └── assets/                            # Symlinked/aliased assets for cross-compatibility
-└── images -> public/images                # Root alias for direct file access
+│   └── images/
+│       ├── Maria Concepcion portrait.png  # Hero cutout portrait (RGBA)
+│       ├── singing.jpeg                   # Live performance photo (Press 01)
+│       ├── portrait standing.jpeg         # Editorial standing photo (Press 02)
+│       ├── portrait.jpeg                  # Close-up portrait (Press 03)
+│       └── releases/                      # Album cover artwork vector/raster assets
+│           ├── release-01.svg             # Neon Requiem (2024 Studio Album)
+│           ├── release-02.svg             # Midnight Transmission (2022 EP)
+│           ├── release-03.svg             # Afterglow (2021 Lead Single)
+│           └── release-04.svg             # Subterranean (2019 Debut Album)
+│
+├── package.json                   # Next.js, Framer Motion, Lenis, Tailwind dependencies
+├── tailwind.config.js             # Custom tokens, fonts, and keyframes
+├── postcss.config.js              # PostCSS configuration
+├── next.config.mjs                # Next.js configuration
+└── README.md                      # Project documentation
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Running the Next.js Project
 
-### Option 1: Live Development Server (Vite)
-
-Run the local development server with hot module replacement:
-
+### 1. Install Dependencies
 ```bash
-# Start development server on port 3000
-npm run dev
-# or
-npx vite
+cd /Users/kitsydumbo/mariaaaa
+npm install
 ```
 
+### 2. Start the Development Server
+```bash
+npm run dev
+```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Option 2: Production Build
-
-Generate an optimized static production bundle in `dist/`:
-
+### 3. Production Build & Start
 ```bash
 npm run build
-npm run preview
-```
-
-### Option 3: Zero-Setup Static Preview
-
-The codebase is fully self-contained with offline fallbacks. You can directly preview it using any local static file server:
-
-```bash
-# Python 3
-python3 -m http.server 8080
-
-# or simply open index.html in your browser:
-open index.html
+npm run start
 ```
 
 ---
