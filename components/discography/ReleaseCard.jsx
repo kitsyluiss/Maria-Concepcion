@@ -1,28 +1,91 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+const RESTING_SCALE = 1;
+const HOVER_SCALE = 28;
+const FREQ_RESTING = 0.009;
+const FREQ_HOVER = 0.022;
+const TENSION = 140;
+const FRICTION = 13;
+
 export function ReleaseCard({ release, isOdd, isPlaying, onTogglePlay, delay = 0 }) {
-  const animFrameRef = useRef(null);
+  const rafRef = useRef(null);
+  const stateRef = useRef({
+    current: RESTING_SCALE,
+    velocity: 0,
+    target: RESTING_SCALE,
+    lastTime: null,
+  });
 
-  const animDisp = useCallback((from, to, dur = 550) => {
+  const isVFXDisabled = useCallback(() => {
+    if (typeof window === 'undefined') return true;
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isSmall = window.innerWidth <= 768;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return isTouch || isSmall || isReduced;
+  }, []);
+
+  const animateTo = useCallback((target) => {
+    const s = stateRef.current;
+    s.target = target;
     const dispEl = document.getElementById(release.dispId);
-    if (!dispEl) return;
-    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    const turbEl = document.getElementById(`turb-${release.id === 'neon-requiem' ? 'r1' : release.id === 'midnight-transmission' ? 'r2' : release.id === 'afterglow' ? 'r3' : 'r4'}`);
 
-    const t0 = performance.now();
-    function step(now) {
-      const t = Math.min((now - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - t, 3);
-      const val = (from + (to - from) * e).toFixed(2);
-      dispEl.setAttribute('scale', val);
-      if (t < 1) {
-        animFrameRef.current = requestAnimationFrame(step);
+    if (rafRef.current) return;
+
+    s.lastTime = performance.now();
+    function tick(now) {
+      const dt = Math.min((now - s.lastTime) / 1000, 0.032);
+      s.lastTime = now;
+
+      // Spring physics (tension 140, friction 13, subtle watery overshoot)
+      const subSteps = 4;
+      const subDt = dt / subSteps;
+      for (let i = 0; i < subSteps; i++) {
+        const force = -TENSION * (s.current - s.target) - FRICTION * s.velocity;
+        s.velocity += force * subDt;
+        s.current += s.velocity * subDt;
+      }
+
+      const progress = (s.current - RESTING_SCALE) / (HOVER_SCALE - RESTING_SCALE);
+      const currentFreq = FREQ_RESTING + progress * (FREQ_HOVER - FREQ_RESTING);
+
+      if (dispEl) dispEl.setAttribute('scale', s.current.toFixed(2));
+      if (turbEl) turbEl.setAttribute('baseFrequency', Math.max(0.002, currentFreq).toFixed(4));
+
+      const isSettled = Math.abs(s.current - s.target) < 0.01 && Math.abs(s.velocity) < 0.05;
+
+      if (isSettled) {
+        s.current = s.target;
+        s.velocity = 0;
+        if (dispEl) dispEl.setAttribute('scale', s.target.toFixed(2));
+        const finalFreq = s.target === HOVER_SCALE ? FREQ_HOVER : FREQ_RESTING;
+        if (turbEl) turbEl.setAttribute('baseFrequency', finalFreq.toFixed(4));
+        rafRef.current = null;
+      } else {
+        rafRef.current = requestAnimationFrame(tick);
       }
     }
-    animFrameRef.current = requestAnimationFrame(step);
-  }, [release.dispId]);
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, [release.dispId, release.id]);
+
+  const handleMouseEnter = () => {
+    if (isVFXDisabled()) return;
+    animateTo(HOVER_SCALE);
+  };
+
+  const handleMouseLeave = () => {
+    animateTo(RESTING_SCALE);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <motion.article
@@ -34,8 +97,8 @@ export function ReleaseCard({ release, isOdd, isPlaying, onTogglePlay, delay = 0
     >
       <div className="release-card__cover-wrap relative">
         <figure
-          onMouseEnter={() => animDisp(0, 25)}
-          onMouseLeave={() => animDisp(25, 0)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           className="liquid-image liquid-image--overlay aspect-[16/11] bg-surface rounded-sm border border-line overflow-hidden relative cursor-pointer"
         >
           <img
@@ -44,8 +107,15 @@ export function ReleaseCard({ release, isOdd, isPlaying, onTogglePlay, delay = 0
             alt={`${release.title} cover`}
             style={{ filter: `url(#${release.filterId})` }}
           />
-          <div className="liquid-image__veil absolute inset-0 bg-[#808080] mix-blend-color opacity-85 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
-          <div className="liquid-image__glow absolute inset-0 bg-gradient-to-tr from-transparent via-accent/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+          {/* 1. Grayscale-to-Color Reveal Overlay */}
+          <div className="vfx-grayscale-overlay" />
+
+          {/* 2. Red Accent Glow Sweep Overlay */}
+          <div className="vfx-glow-overlay" />
+
+          {/* 3. Persistent Radial Vignette Overlay */}
+          <div className="vfx-vignette-overlay" />
         </figure>
 
         {/* Audio Stem Preview Trigger */}

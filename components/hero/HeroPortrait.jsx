@@ -1,37 +1,93 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
+
+const RESTING_SCALE = 1;
+const HOVER_SCALE = 30;
+const FREQ_RESTING = 0.009;
+const FREQ_HOVER = 0.022;
+const TENSION = 140;
+const FRICTION = 13;
 
 export function HeroPortrait() {
   const figRef = useRef(null);
-  const animFrameRef = useRef(null);
+  const rafRef = useRef(null);
+  const stateRef = useRef({
+    current: RESTING_SCALE,
+    velocity: 0,
+    target: RESTING_SCALE,
+    lastTime: null,
+  });
 
-  const animDisp = useCallback((from, to, dur = 550) => {
+  const isVFXDisabled = useCallback(() => {
+    if (typeof window === 'undefined') return true;
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isSmall = window.innerWidth <= 768;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return isTouch || isSmall || isReduced;
+  }, []);
+
+  const animateTo = useCallback((target) => {
+    const s = stateRef.current;
+    s.target = target;
     const dispEl = document.getElementById('disp-hero');
-    if (!dispEl) return;
-    if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    const turbEl = document.getElementById('turb-hero');
 
-    const t0 = performance.now();
-    function step(now) {
-      const t = Math.min((now - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - t, 3); // Cubic ease-out
-      const val = (from + (to - from) * e).toFixed(2);
-      dispEl.setAttribute('scale', val);
-      if (t < 1) {
-        animFrameRef.current = requestAnimationFrame(step);
+    if (rafRef.current) return;
+
+    s.lastTime = performance.now();
+    function tick(now) {
+      const dt = Math.min((now - s.lastTime) / 1000, 0.032);
+      s.lastTime = now;
+
+      // Sub-stepping semi-implicit Euler integration with tension 140 & friction 13
+      const subSteps = 4;
+      const subDt = dt / subSteps;
+      for (let i = 0; i < subSteps; i++) {
+        const force = -TENSION * (s.current - s.target) - FRICTION * s.velocity;
+        s.velocity += force * subDt;
+        s.current += s.velocity * subDt;
+      }
+
+      // Map scale to baseFrequency with subtle watery overshoot
+      const progress = (s.current - RESTING_SCALE) / (HOVER_SCALE - RESTING_SCALE);
+      const currentFreq = FREQ_RESTING + progress * (FREQ_HOVER - FREQ_RESTING);
+
+      if (dispEl) dispEl.setAttribute('scale', s.current.toFixed(2));
+      if (turbEl) turbEl.setAttribute('baseFrequency', Math.max(0.002, currentFreq).toFixed(4));
+
+      const isSettled = Math.abs(s.current - s.target) < 0.01 && Math.abs(s.velocity) < 0.05;
+
+      if (isSettled) {
+        s.current = s.target;
+        s.velocity = 0;
+        if (dispEl) dispEl.setAttribute('scale', s.target.toFixed(2));
+        const finalFreq = s.target === HOVER_SCALE ? FREQ_HOVER : FREQ_RESTING;
+        if (turbEl) turbEl.setAttribute('baseFrequency', finalFreq.toFixed(4));
+        rafRef.current = null;
+      } else {
+        rafRef.current = requestAnimationFrame(tick);
       }
     }
-    animFrameRef.current = requestAnimationFrame(step);
+
+    rafRef.current = requestAnimationFrame(tick);
   }, []);
 
   const handleMouseEnter = () => {
-    animDisp(0, 26, 600);
+    if (isVFXDisabled()) return;
+    animateTo(HOVER_SCALE);
   };
 
   const handleMouseLeave = () => {
-    animDisp(26, 0, 500);
+    animateTo(RESTING_SCALE);
   };
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -40,6 +96,7 @@ export function HeroPortrait() {
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
       className="hero__portrait-col absolute bottom-0 left-1/2 -translate-x-1/2 h-[86vh] w-[80vw] sm:w-[48vw] lg:w-[36vw] z-20 flex items-end justify-center pointer-events-auto select-none"
     >
+      {/* Hero Portrait Exception: Apply ONLY the liquid SVG distortion. No grayscale, glow sweep, or vignette */}
       <figure
         ref={figRef}
         onMouseEnter={handleMouseEnter}

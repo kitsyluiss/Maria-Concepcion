@@ -30,37 +30,49 @@
 <!-- ═══════════════ SVG LIQUID DISPLACEMENT SHADERS ═══════════════ -->
 <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
   <defs>
-    <filter id="liquid-hero" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="3" seed="2" result="n"/>
-      <feDisplacementMap id="disp-hero" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    <!-- Hero Portrait (Outline-Isolated Liquid Shader: scale=1, baseFrequency=0.009, numOctaves=2) -->
+    <filter id="liquid-hero" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence id="turb-hero" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="2" result="rawNoise"/>
+      <feMorphology in="SourceAlpha" operator="dilate" radius="8" result="outerSilhouette"/>
+      <feMorphology in="SourceAlpha" operator="erode" radius="4" result="innerSilhouette"/>
+      <feComposite in="outerSilhouette" in2="innerSilhouette" operator="out" result="edgeBand"/>
+      <feFlood flood-color="#808080" result="neutralMap"/>
+      <feComposite in="rawNoise" in2="edgeBand" operator="in" result="maskedNoise"/>
+      <feComposite in="maskedNoise" in2="neutralMap" operator="over" result="displacementSource"/>
+      <feDisplacementMap id="disp-hero" in="SourceGraphic" in2="displacementSource" scale="1" xChannelSelector="R" yChannelSelector="G" result="displacedGraphic"/>
+      <feComposite in="displacedGraphic" in2="outerSilhouette" operator="in"/>
     </filter>
-    <filter id="liquid-r1" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.015" numOctaves="3" seed="5" result="n"/>
-      <feDisplacementMap id="disp-r1" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+
+    <!-- General Photos & Cards: Releases 01..04 (scale=1, baseFrequency=0.009, numOctaves=2) -->
+    <filter id="liquid-r1" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-r1" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="5" result="n"/>
+      <feDisplacementMap id="disp-r1" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <filter id="liquid-r2" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.017" numOctaves="3" seed="8" result="n"/>
-      <feDisplacementMap id="disp-r2" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="liquid-r2" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-r2" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="8" result="n"/>
+      <feDisplacementMap id="disp-r2" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <filter id="liquid-r3" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.016" numOctaves="3" seed="11" result="n"/>
-      <feDisplacementMap id="disp-r3" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="liquid-r3" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-r3" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="11" result="n"/>
+      <feDisplacementMap id="disp-r3" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <filter id="liquid-r4" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.019" numOctaves="3" seed="14" result="n"/>
-      <feDisplacementMap id="disp-r4" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="liquid-r4" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-r4" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="14" result="n"/>
+      <feDisplacementMap id="disp-r4" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <filter id="liquid-p1" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="17" result="n"/>
-      <feDisplacementMap id="disp-p1" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+
+    <!-- Testimonial Portraits: Press 01..03 (scale=1, baseFrequency=0.009, numOctaves=2) -->
+    <filter id="liquid-p1" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-p1" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="17" result="n"/>
+      <feDisplacementMap id="disp-p1" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <filter id="liquid-p2" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.014" numOctaves="3" seed="20" result="n"/>
-      <feDisplacementMap id="disp-p2" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="liquid-p2" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-p2" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="20" result="n"/>
+      <feDisplacementMap id="disp-p2" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
-    <filter id="liquid-p3" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.018" numOctaves="3" seed="23" result="n"/>
-      <feDisplacementMap id="disp-p3" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="liquid-p3" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence id="turb-p3" type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="23" result="n"/>
+      <feDisplacementMap id="disp-p3" in="SourceGraphic" in2="n" scale="1" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
   </defs>
 </svg>
@@ -151,7 +163,7 @@
 
   <!-- Hero Portrait Cutout with applied Maria Concepcion portrait.png -->
   <div class="hero__portrait-col">
-    <figure class="liquid-image liquid-image--bare" data-disp="disp-hero">
+    <figure class="liquid-image liquid-image--bare" data-vfx-context="hero" data-disp="disp-hero" data-turb="turb-hero">
       <img class="liquid-image__img liquid-image__img--hero"
            src="images/Maria Concepcion portrait.png"
            alt="Maria Concepcion portrait"
@@ -246,10 +258,11 @@
     <!-- Release 01: Neon Requiem -->
     <article class="release-card reveal-card" style="transition-delay:0ms">
       <div class="release-card__cover-wrap">
-        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r1">
+        <figure class="liquid-image liquid-image--overlay" data-vfx-context="card" data-disp="disp-r1" data-turb="turb-r1">
           <img class="liquid-image__img" src="assets/release-01.svg" alt="Neon Requiem album cover" style="filter:url(#liquid-r1)">
-          <div class="liquid-image__veil"></div>
-          <div class="liquid-image__glow"></div>
+          <div class="vfx-grayscale-overlay"></div>
+          <div class="vfx-glow-overlay"></div>
+          <div class="vfx-vignette-overlay"></div>
         </figure>
         <button class="release-card__play-btn" data-track="neon-requiem" aria-label="Play snippet for Neon Requiem">
           <span class="play-icon">▶</span>
@@ -268,10 +281,11 @@
     <!-- Release 02: Midnight Transmission -->
     <article class="release-card reveal-card" style="transition-delay:90ms">
       <div class="release-card__cover-wrap">
-        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r2">
+        <figure class="liquid-image liquid-image--overlay" data-vfx-context="card" data-disp="disp-r2" data-turb="turb-r2">
           <img class="liquid-image__img" src="assets/release-02.svg" alt="Midnight Transmission cover" style="filter:url(#liquid-r2)">
-          <div class="liquid-image__veil"></div>
-          <div class="liquid-image__glow"></div>
+          <div class="vfx-grayscale-overlay"></div>
+          <div class="vfx-glow-overlay"></div>
+          <div class="vfx-vignette-overlay"></div>
         </figure>
         <button class="release-card__play-btn" data-track="midnight-transmission" aria-label="Play snippet for Midnight Transmission">
           <span class="play-icon">▶</span>
@@ -290,10 +304,11 @@
     <!-- Release 03: Afterglow -->
     <article class="release-card reveal-card" style="transition-delay:180ms">
       <div class="release-card__cover-wrap">
-        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r3">
+        <figure class="liquid-image liquid-image--overlay" data-vfx-context="card" data-disp="disp-r3" data-turb="turb-r3">
           <img class="liquid-image__img" src="assets/release-03.svg" alt="Afterglow cover" style="filter:url(#liquid-r3)">
-          <div class="liquid-image__veil"></div>
-          <div class="liquid-image__glow"></div>
+          <div class="vfx-grayscale-overlay"></div>
+          <div class="vfx-glow-overlay"></div>
+          <div class="vfx-vignette-overlay"></div>
         </figure>
         <button class="release-card__play-btn" data-track="afterglow" aria-label="Play snippet for Afterglow">
           <span class="play-icon">▶</span>
@@ -312,10 +327,11 @@
     <!-- Release 04: Subterranean -->
     <article class="release-card reveal-card" style="transition-delay:270ms">
       <div class="release-card__cover-wrap">
-        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r4">
+        <figure class="liquid-image liquid-image--overlay" data-vfx-context="card" data-disp="disp-r4" data-turb="turb-r4">
           <img class="liquid-image__img" src="assets/release-04.svg" alt="Subterranean cover" style="filter:url(#liquid-r4)">
-          <div class="liquid-image__veil"></div>
-          <div class="liquid-image__glow"></div>
+          <div class="vfx-grayscale-overlay"></div>
+          <div class="vfx-glow-overlay"></div>
+          <div class="vfx-vignette-overlay"></div>
         </figure>
         <button class="release-card__play-btn" data-track="subterranean" aria-label="Play snippet for Subterranean">
           <span class="play-icon">▶</span>
@@ -392,10 +408,11 @@
     <div class="press__featured">
       <blockquote class="press__quote" id="press-quote"></blockquote>
       <!-- Dynamic Featured Press Image with real photography from images folder -->
-      <figure class="liquid-image liquid-image--overlay" data-disp="disp-p1" id="press-fig">
+      <figure class="liquid-image liquid-image--overlay" data-vfx-context="testimonial" data-disp="disp-p1" data-turb="turb-p1" id="press-fig">
         <img class="liquid-image__img" id="press-img" src="images/singing.jpeg" alt="Maria Concepcion performing live with microphone under stage lighting" style="filter:url(#liquid-p1)">
-        <div class="liquid-image__veil"></div>
-        <div class="liquid-image__glow"></div>
+        <div class="vfx-grayscale-overlay"></div>
+        <div class="vfx-glow-overlay"></div>
+        <div class="vfx-vignette-overlay"></div>
       </figure>
     </div>
   </div>

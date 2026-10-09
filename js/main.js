@@ -101,6 +101,7 @@ const pressData = [
     image: "images/singing.jpeg",
     filter: "liquid-p1",
     disp: "disp-p1",
+    turb: "turb-p1",
     alt: "Maria Concepcion performing live with microphone under stage lighting"
   },
   {
@@ -108,6 +109,7 @@ const pressData = [
     image: "images/portrait standing.jpeg",
     filter: "liquid-p2",
     disp: "disp-p2",
+    turb: "turb-p2",
     alt: "Maria Concepcion standing in dramatic editorial studio portrait"
   },
   {
@@ -115,6 +117,7 @@ const pressData = [
     image: "images/portrait.jpeg",
     filter: "liquid-p3",
     disp: "disp-p3",
+    turb: "turb-p3",
     alt: "Maria Concepcion intense close-up portrait"
   }
 ];
@@ -190,6 +193,10 @@ document.querySelectorAll(".press__btn").forEach(btn => {
     const fig = document.getElementById("press-fig");
     if (fig) {
       fig.dataset.disp = d.disp;
+      fig.dataset.turb = d.turb;
+      if (pressVfxController) {
+        pressVfxController.updateTargets(d.disp, d.turb);
+      }
     }
   });
 });
@@ -239,23 +246,158 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── SVG Liquid Displacement Hover Animation ──
-function animDisp(el, from, to, dur = 550) {
-  const t0 = performance.now();
-  (function step(now) {
-    const t = Math.min((now - t0) / dur, 1);
-    const e = 1 - Math.pow(1 - t, 3); // Cubic ease-out
-    const val = (from + (to - from) * e).toFixed(2);
-    el.setAttribute("scale", val);
-    if (t < 1) requestAnimationFrame(step);
-  })(performance.now());
+// ── Photo VFX: Spring Physics Liquid Distortion ──
+// Parameters: tension = 140, friction = 13, duration ≈ 520ms, subtle watery overshoot
+const VFX_SCALES = {
+  hero: { resting: 1, hover: 30 },
+  card: { resting: 1, hover: 28 },
+  testimonial: { resting: 1, hover: 22 }
+};
+
+const FREQ_RESTING = 0.009;
+const FREQ_HOVER = 0.022;
+const TENSION = 140;
+const FRICTION = 13;
+
+function isVFXDisabled() {
+  if (typeof window === 'undefined') return true;
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  const isSmallViewport = window.innerWidth <= 768;
+  const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return isTouch || isSmallViewport || isReducedMotion;
 }
 
-document.querySelectorAll(".liquid-image[data-disp]").forEach(fig => {
-  const dispEl = document.getElementById(fig.dataset.disp);
-  if (!dispEl) return;
-  fig.addEventListener("mouseenter", () => animDisp(dispEl, 0, 28));
-  fig.addEventListener("mouseleave", () => animDisp(dispEl, 28, 0));
+class LiquidSpringController {
+  constructor(container) {
+    this.container = container;
+    this.context = container.dataset.vfxContext || 'card';
+    this.dispId = container.dataset.disp;
+    this.turbId = container.dataset.turb;
+
+    this.dispEl = document.getElementById(this.dispId);
+    this.turbEl = document.getElementById(this.turbId);
+
+    const config = VFX_SCALES[this.context] || VFX_SCALES.card;
+    this.restingScale = config.resting;
+    this.hoverScale = config.hover;
+
+    this.currentScale = this.restingScale;
+    this.velocity = 0;
+    this.targetScale = this.restingScale;
+
+    this.rafId = null;
+    this.lastTime = null;
+
+    this.onEnter = this.onEnter.bind(this);
+    this.onLeave = this.onLeave.bind(this);
+
+    this.init();
+  }
+
+  init() {
+    this.container.addEventListener('mouseenter', this.onEnter);
+    this.container.addEventListener('mouseleave', this.onLeave);
+    if (this.dispEl) this.dispEl.setAttribute('scale', this.restingScale);
+    if (this.turbEl) this.turbEl.setAttribute('baseFrequency', FREQ_RESTING);
+  }
+
+  updateTargets(dispId, turbId) {
+    this.dispId = dispId;
+    this.turbId = turbId;
+    this.dispEl = document.getElementById(dispId);
+    this.turbEl = document.getElementById(turbId);
+    this.currentScale = this.restingScale;
+    this.velocity = 0;
+    this.targetScale = this.restingScale;
+    if (this.dispEl) this.dispEl.setAttribute('scale', this.restingScale);
+    if (this.turbEl) this.turbEl.setAttribute('baseFrequency', FREQ_RESTING);
+  }
+
+  onEnter() {
+    if (isVFXDisabled()) return;
+    this.setTarget(this.hoverScale);
+  }
+
+  onLeave() {
+    this.setTarget(this.restingScale);
+  }
+
+  setTarget(target) {
+    this.targetScale = target;
+    if (!this.rafId) {
+      this.lastTime = performance.now();
+      this.rafId = requestAnimationFrame(this.tick.bind(this));
+    }
+  }
+
+  tick(now) {
+    const elapsed = Math.min((now - this.lastTime) / 1000, 0.032);
+    this.lastTime = now;
+
+    // Sub-stepping semi-implicit Euler integration for tension 140 & friction 13
+    const subSteps = 4;
+    const dt = elapsed / subSteps;
+    for (let i = 0; i < subSteps; i++) {
+      const force = -TENSION * (this.currentScale - this.targetScale) - FRICTION * this.velocity;
+      this.velocity += force * dt;
+      this.currentScale += this.velocity * dt;
+    }
+
+    // Map scale progress to baseFrequency (0.009 -> 0.022) with watery overshoot
+    const progress = (this.currentScale - this.restingScale) / (this.hoverScale - this.restingScale);
+    const currentFreq = FREQ_RESTING + progress * (FREQ_HOVER - FREQ_RESTING);
+
+    if (this.dispEl) {
+      this.dispEl.setAttribute('scale', this.currentScale.toFixed(2));
+    }
+    if (this.turbEl) {
+      this.turbEl.setAttribute('baseFrequency', Math.max(0.002, currentFreq).toFixed(4));
+    }
+
+    // Settling threshold
+    const isSettled = Math.abs(this.currentScale - this.targetScale) < 0.01 && Math.abs(this.velocity) < 0.05;
+
+    if (isSettled) {
+      this.currentScale = this.targetScale;
+      this.velocity = 0;
+      if (this.dispEl) this.dispEl.setAttribute('scale', this.targetScale.toFixed(2));
+      const finalFreq = this.targetScale === this.hoverScale ? FREQ_HOVER : FREQ_RESTING;
+      if (this.turbEl) this.turbEl.setAttribute('baseFrequency', finalFreq.toFixed(4));
+      this.rafId = null;
+    } else {
+      this.rafId = requestAnimationFrame(this.tick.bind(this));
+    }
+  }
+
+  destroy() {
+    this.container.removeEventListener('mouseenter', this.onEnter);
+    this.container.removeEventListener('mouseleave', this.onLeave);
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+  }
+}
+
+// Instantiate controllers on all liquid image containers
+const vfxControllers = [];
+let pressVfxController = null;
+
+document.querySelectorAll('.liquid-image[data-disp]').forEach(container => {
+  const ctrl = new LiquidSpringController(container);
+  vfxControllers.push(ctrl);
+  if (container.id === 'press-fig') {
+    pressVfxController = ctrl;
+  }
+});
+
+// Window resize listener to handle responsive threshold
+window.addEventListener('resize', () => {
+  if (isVFXDisabled()) {
+    vfxControllers.forEach(ctrl => {
+      ctrl.setTarget(ctrl.restingScale);
+    });
+  }
 });
 
 // ── Audio Engine Integration ──

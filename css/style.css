@@ -1072,7 +1072,7 @@ main {
   opacity: 1;
 }
 
-/* ═══════════════ LIQUID IMAGE ═══════════════ */
+/* ═══════════════ PHOTO VFX OVERLAYS & LAYERING ═══════════════ */
 .liquid-image {
   position: relative;
   overflow: hidden;
@@ -1093,6 +1093,8 @@ main {
   height: 100%;
   object-fit: cover;
   transition: transform 600ms cubic-bezier(.16, 1, .3, 1);
+  position: relative;
+  z-index: 1;
 }
 
 .liquid-image--overlay:hover .liquid-image__img {
@@ -1105,31 +1107,50 @@ main {
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));
 }
 
-.liquid-image__veil {
+/* 1. Grayscale-to-Color Reveal Overlay */
+.liquid-image__veil,
+.vfx-grayscale-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(128, 128, 128, 1);
+  background: #08080a;
   mix-blend-mode: color;
-  opacity: 0.85;
-  transition: opacity 520ms ease-out;
+  opacity: 0.88;
+  transition: opacity 380ms ease-out;
   pointer-events: none;
+  z-index: 2;
 }
 
-.liquid-image--overlay:hover .liquid-image__veil {
+.liquid-image--overlay:hover .liquid-image__veil,
+.liquid-image--overlay:hover .vfx-grayscale-overlay {
   opacity: 0;
 }
 
-.liquid-image__glow {
+/* 2. Red Accent Glow Sweep Overlay */
+.liquid-image__glow,
+.vfx-glow-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 30%, color-mix(in srgb, #ff2a85 35%, transparent) 50%, transparent 70%);
+  background: linear-gradient(120deg, transparent 30%, color-mix(in srgb, #ff3b1d 35%, transparent) 50%, transparent 70%);
   opacity: 0;
-  transition: opacity 520ms ease-out;
+  transition: opacity 380ms ease-out;
   pointer-events: none;
+  z-index: 3;
 }
 
-.liquid-image--overlay:hover .liquid-image__glow {
+.liquid-image--overlay:hover .liquid-image__glow,
+.liquid-image--overlay:hover .vfx-glow-overlay {
   opacity: 1;
+}
+
+/* 3. Persistent Radial Vignette Overlay */
+.liquid-image__vignette,
+.vfx-vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 120% at 50% 120%, color-mix(in srgb, #08080a 70%, transparent), transparent 60%);
+  opacity: 1;
+  pointer-events: none;
+  z-index: 4;
 }
 
 .release-card .liquid-image {
