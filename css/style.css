@@ -477,30 +477,38 @@ main {
 
 .hero__portrait-col {
   position: absolute;
-  inset: 0;
-  margin: auto;
-  height: 86vh;
-  width: 80vw;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  height: 88vh;
+  width: 85vw;
   z-index: 20;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   pointer-events: auto;
 }
 
 @media (min-width: 640px) {
-  .hero__portrait-col { width: 48vw; }
+  .hero__portrait-col {
+    width: 56vw;
+    height: 90vh;
+  }
 }
 
 @media (min-width: 1024px) {
-  .hero__portrait-col { width: 36vw; }
+  .hero__portrait-col {
+    width: 42vw;
+    height: 94vh;
+  }
 }
 
 .hero__portrait-col .liquid-image {
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   margin: 0 auto;
 }
@@ -1102,7 +1110,7 @@ main {
 }
 
 .liquid-image__img--hero {
-  object-position: center center;
+  object-position: center bottom;
   object-fit: contain;
   margin: 0 auto;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));

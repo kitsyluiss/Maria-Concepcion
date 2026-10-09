@@ -83,7 +83,7 @@ body {
 }
 
 .liquid-image__img--hero {
-  object-position: center center;
+  object-position: center bottom;
   object-fit: contain;
   margin: 0 auto;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.8));

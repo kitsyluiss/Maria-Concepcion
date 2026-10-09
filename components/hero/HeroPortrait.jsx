@@ -91,20 +91,20 @@ export function HeroPortrait() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      className="hero__portrait-col absolute inset-0 m-auto h-[86vh] w-[80vw] sm:w-[48vw] lg:w-[36vw] z-20 flex items-center justify-center pointer-events-auto select-none"
+      className="hero__portrait-col absolute bottom-0 inset-x-0 mx-auto h-[88vh] sm:h-[90vh] lg:h-[94vh] w-[85vw] sm:w-[56vw] lg:w-[42vw] z-20 flex items-end justify-center pointer-events-auto select-none"
     >
       {/* Hero Portrait Exception: Apply ONLY the liquid SVG distortion. No grayscale, glow sweep, or vignette */}
       <figure
         ref={figRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="liquid-image liquid-image--bare w-full h-full flex items-center justify-center mx-auto group"
+        className="liquid-image liquid-image--bare w-full h-full flex items-end justify-center mx-auto group"
       >
         <img
-          className="liquid-image__img liquid-image__img--hero w-full h-full object-contain object-center mx-auto pointer-events-auto"
+          className="liquid-image__img liquid-image__img--hero w-full h-full object-contain object-bottom mx-auto pointer-events-auto"
           src="/images/Maria Concepcion portrait.png"
           alt="Maria Concepcion portrait"
           style={{ filter: 'url(#liquid-hero)' }}
