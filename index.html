@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maria Concepcion — Official EPK</title>
+  
+  <!-- SEO & Open Graph Metadata -->
+  <meta name="description" content="Official Electronic Press Kit (EPK) for Maria Concepcion — Dark pop vocalist, songwriter, and performer with over 350M streams.">
+  <meta name="theme-color" content="#08080a">
+  <meta property="og:title" content="Maria Concepcion — Official EPK">
+  <meta property="og:description" content="Dark electronic pop, raw vulnerability, 350M+ streams. Booking, discography, press acclaim, and statistics.">
+  <meta property="og:image" content="images/Maria Concepcion portrait.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Google Fonts Preconnect & Stylesheets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════ SVG LIQUID DISPLACEMENT SHADERS ═══════════════ -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <defs>
+    <filter id="liquid-hero" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="3" seed="2" result="n"/>
+      <feDisplacementMap id="disp-hero" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-r1" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.015" numOctaves="3" seed="5" result="n"/>
+      <feDisplacementMap id="disp-r1" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-r2" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.017" numOctaves="3" seed="8" result="n"/>
+      <feDisplacementMap id="disp-r2" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-r3" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.016" numOctaves="3" seed="11" result="n"/>
+      <feDisplacementMap id="disp-r3" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-r4" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.019" numOctaves="3" seed="14" result="n"/>
+      <feDisplacementMap id="disp-r4" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-p1" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="17" result="n"/>
+      <feDisplacementMap id="disp-p1" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-p2" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01 0.014" numOctaves="3" seed="20" result="n"/>
+      <feDisplacementMap id="disp-p2" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="liquid-p3" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.018" numOctaves="3" seed="23" result="n"/>
+      <feDisplacementMap id="disp-p3" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ═══════════════ PRELOADER ═══════════════ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__label">Maria Concepcion</div>
+  <div class="preloader__counter"><span id="preloader-count">0</span><span class="preloader__pct">%</span></div>
+</div>
+
+<!-- ═══════════════ SITE HEADER / NAV ═══════════════ -->
+<header class="site-header">
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="#top" class="nav__logo" aria-label="Return to top">
+      <div class="nav__monogram">MC</div>
+      <span class="nav__brand">Maria Concepcion — EPK</span>
+    </a>
+
+    <div class="nav__right-group">
+      <ul class="nav__links">
+        <li><a href="#bio" class="nav__link">Bio</a></li>
+        <li><a href="#releases" class="nav__link">Releases</a></li>
+        <li><a href="#stats" class="nav__link">Stats</a></li>
+        <li><a href="#press" class="nav__link">Press</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+
+      <!-- Atmospheric Ambient Sound Toggle -->
+      <button class="nav__sound-btn" id="sound-toggle" title="Toggle dark synth soundscape" aria-label="Toggle ambient sound">
+        <span class="sound-bars">
+          <span></span><span></span><span></span>
+        </span>
+        <span>Sound</span>
+      </button>
+
+      <!-- Hamburger toggle for mobile devices -->
+      <button class="nav__burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- ═══════════════ MOBILE DRAWER ═══════════════ -->
+<div class="mobile-drawer" id="drawer" aria-hidden="true">
+  <a href="#bio" class="mobile-drawer__link">Bio</a>
+  <a href="#releases" class="mobile-drawer__link">Releases</a>
+  <a href="#stats" class="mobile-drawer__link">Stats</a>
+  <a href="#press" class="mobile-drawer__link">Press</a>
+  <a href="#contact" class="mobile-drawer__link">Contact</a>
+</div>
+
+<main>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="top" class="hero">
+  <div class="hero__top">
+    <h2 class="hero__roles">
+      <span class="hero__roles-line"><span style="transition-delay:0ms">Vocalist</span></span>
+      <span class="hero__roles-line"><span style="transition-delay:80ms">Songwriter</span></span>
+      <span class="hero__roles-line"><span style="transition-delay:160ms">Performer</span></span>
+      <span class="hero__roles-line"><span style="transition-delay:240ms">Visionary</span></span>
+    </h2>
+    <p class="hero__statement">Creating immersive sonic landscapes where dark electronic pop meets raw, unapologetic vulnerability. Over 350M streams, arena-scale energy, zero compromise.</p>
+  </div>
+
+  <h1 class="hero__name" aria-label="Maria Concepcion">
+    <span class="hero__name-line" aria-hidden="true">
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:0ms">M</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:52ms">a</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:104ms">r</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:156ms">i</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:208ms">a</span></span>
+    </span>
+    <span class="hero__name-line" aria-hidden="true">
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:240ms">C</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:292ms">o</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:344ms">n</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:396ms">c</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:448ms">e</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:500ms">p</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:552ms">c</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:604ms">i</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:656ms">o</span></span>
+      <span class="hero__name-lw"><span class="hero__name-letter" style="transition-delay:708ms">n</span></span>
+    </span>
+  </h1>
+
+  <!-- Hero Portrait Cutout with applied Maria Concepcion portrait.png -->
+  <div class="hero__portrait-col">
+    <figure class="liquid-image liquid-image--bare" data-disp="disp-hero">
+      <img class="liquid-image__img liquid-image__img--hero"
+           src="images/Maria Concepcion portrait.png"
+           alt="Maria Concepcion portrait"
+           style="filter:url(#liquid-hero)">
+    </figure>
+  </div>
+
+  <div class="hero__gradient"></div>
+
+  <div class="hero__scroll-cue">
+    <span class="hero__scroll-line"></span>
+    <span>Explore EPK</span>
+  </div>
+</section>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<section class="marquee" aria-label="Sonic identity">
+  <div class="marquee__track">
+    <div class="marquee__group">
+      <span class="marquee__word">Dark Pop</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Hypnotic Vocals</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Heavy Basslines</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Sold Out Nights</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Cinematic Soul</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Sonic Velocity</span><span class="marquee__dot"></span>
+    </div>
+    <div class="marquee__group" aria-hidden="true">
+      <span class="marquee__word">Dark Pop</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Hypnotic Vocals</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Heavy Basslines</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Sold Out Nights</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Cinematic Soul</span><span class="marquee__dot"></span>
+      <span class="marquee__word">Sonic Velocity</span><span class="marquee__dot"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BIO / STORY ═══════════════ -->
+<section id="bio" class="bio">
+  <div class="bio__grid">
+    <div class="bio__left">
+      <div class="eyebrow reveal"><span class="eyebrow__dot"></span>The Artistry</div>
+      <div class="reveal-line"><h2 class="bio__heading reveal-line__text">Sound that commands the room.</h2></div>
+      <p class="bio__lead reveal">For eight years Maria Concepcion has carved out a singular lane in modern pop — blending industrial synth textures with soaring, classically grounded vocal hooks. From intimate basement venues to international festival stages, her trajectory is defined by razor-sharp artistic control and a dedicated global fanbase.</p>
+    </div>
+    <div class="bio__right">
+      <ul>
+        <li class="pillar reveal-card" style="transition-delay:0ms">
+          <span class="pillar__index">01</span>
+          <div>
+            <h3 class="pillar__title">Unfiltered Lyrical Edge</h3>
+            <p class="pillar__blurb">Writing every song from visceral lived experience. No ghostwriting, no watered-down sentimentality.</p>
+          </div>
+        </li>
+        <li class="pillar reveal-card" style="transition-delay:110ms">
+          <span class="pillar__index">02</span>
+          <div>
+            <h3 class="pillar__title">Sculpted Electronic Production</h3>
+            <p class="pillar__blurb">Fusing modular analog synthesizers with modern trap percussion and orchestral sub-bass.</p>
+          </div>
+        </li>
+        <li class="pillar reveal-card" style="transition-delay:220ms">
+          <span class="pillar__index">03</span>
+          <div>
+            <h3 class="pillar__title">Immersive Live Experience</h3>
+            <p class="pillar__blurb">Transforming concerts into high-contrast visual performances with synchronized lighting and choreography.</p>
+          </div>
+        </li>
+        <li class="pillar reveal-card" style="transition-delay:330ms">
+          <span class="pillar__index">04</span>
+          <div>
+            <h3 class="pillar__title">Direct-to-Fan Independence</h3>
+            <p class="pillar__blurb">Building an engaged community across digital platforms that champions authenticity over algorithm chasing.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DISCOGRAPHY ═══════════════ -->
+<section id="releases" class="discography">
+  <div class="section-header">
+    <div>
+      <div class="eyebrow reveal"><span class="eyebrow__dot"></span>Discography</div>
+      <div class="reveal-line"><h2 class="discography__heading reveal-line__text">The records that moved audiences.</h2></div>
+    </div>
+    <span class="section-header__label">04 / Key Releases</span>
+  </div>
+  <div class="discography__grid">
+
+    <!-- Release 01: Neon Requiem -->
+    <article class="release-card reveal-card" style="transition-delay:0ms">
+      <div class="release-card__cover-wrap">
+        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r1">
+          <img class="liquid-image__img" src="assets/release-01.svg" alt="Neon Requiem album cover" style="filter:url(#liquid-r1)">
+          <div class="liquid-image__veil"></div>
+          <div class="liquid-image__glow"></div>
+        </figure>
+        <button class="release-card__play-btn" data-track="neon-requiem" aria-label="Play snippet for Neon Requiem">
+          <span class="play-icon">▶</span>
+          <span class="play-text">Preview</span>
+        </button>
+      </div>
+      <h3 class="release-card__name">Neon Requiem</h3>
+      <p class="release-card__blurb">A sweeping 12-track exploration of love, nocturnal cityscapes, and synthetic rebirth.</p>
+      <div class="release-card__row">
+        <span class="release-card__year">2024</span>
+        <span class="release-card__badge">Platinum — 155M Streams</span>
+      </div>
+      <p class="release-card__category">Studio Album</p>
+    </article>
+
+    <!-- Release 02: Midnight Transmission -->
+    <article class="release-card reveal-card" style="transition-delay:90ms">
+      <div class="release-card__cover-wrap">
+        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r2">
+          <img class="liquid-image__img" src="assets/release-02.svg" alt="Midnight Transmission cover" style="filter:url(#liquid-r2)">
+          <div class="liquid-image__veil"></div>
+          <div class="liquid-image__glow"></div>
+        </figure>
+        <button class="release-card__play-btn" data-track="midnight-transmission" aria-label="Play snippet for Midnight Transmission">
+          <span class="play-icon">▶</span>
+          <span class="play-text">Preview</span>
+        </button>
+      </div>
+      <h3 class="release-card__name">Midnight Transmission</h3>
+      <p class="release-card__blurb">The breakthrough collection that introduced her dark synth-pop signature to international airplay.</p>
+      <div class="release-card__row">
+        <span class="release-card__year">2022</span>
+        <span class="release-card__badge">Gold — 92M Streams</span>
+      </div>
+      <p class="release-card__category">EP</p>
+    </article>
+
+    <!-- Release 03: Afterglow -->
+    <article class="release-card reveal-card" style="transition-delay:180ms">
+      <div class="release-card__cover-wrap">
+        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r3">
+          <img class="liquid-image__img" src="assets/release-03.svg" alt="Afterglow cover" style="filter:url(#liquid-r3)">
+          <div class="liquid-image__veil"></div>
+          <div class="liquid-image__glow"></div>
+        </figure>
+        <button class="release-card__play-btn" data-track="afterglow" aria-label="Play snippet for Afterglow">
+          <span class="play-icon">▶</span>
+          <span class="play-text">Preview</span>
+        </button>
+      </div>
+      <h3 class="release-card__name">Afterglow</h3>
+      <p class="release-card__blurb">A relentless, bass-driven anthem that dominated festival circuits and global streaming charts.</p>
+      <div class="release-card__row">
+        <span class="release-card__year">2021</span>
+        <span class="release-card__badge">Top 40 — 74M Streams</span>
+      </div>
+      <p class="release-card__category">Lead Single</p>
+    </article>
+
+    <!-- Release 04: Subterranean -->
+    <article class="release-card reveal-card" style="transition-delay:270ms">
+      <div class="release-card__cover-wrap">
+        <figure class="liquid-image liquid-image--overlay" data-disp="disp-r4">
+          <img class="liquid-image__img" src="assets/release-04.svg" alt="Subterranean cover" style="filter:url(#liquid-r4)">
+          <div class="liquid-image__veil"></div>
+          <div class="liquid-image__glow"></div>
+        </figure>
+        <button class="release-card__play-btn" data-track="subterranean" aria-label="Play snippet for Subterranean">
+          <span class="play-icon">▶</span>
+          <span class="play-text">Preview</span>
+        </button>
+      </div>
+      <h3 class="release-card__name">Subterranean</h3>
+      <p class="release-card__blurb">The raw, critically acclaimed debut that established her signature vocal range and production style.</p>
+      <div class="release-card__row">
+        <span class="release-card__year">2019</span>
+        <span class="release-card__badge">Indie Breakthrough</span>
+      </div>
+      <p class="release-card__category">Debut Album</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ═══════════════ BY THE NUMBERS ═══════════════ -->
+<section id="stats" class="stats">
+  <div class="eyebrow reveal"><span class="eyebrow__dot"></span>By The Numbers</div>
+  <div class="reveal-line"><h2 class="stats__heading reveal-line__text">Global reach, measured.</h2></div>
+  <dl class="stats__grid">
+    <div class="stat reveal-card" style="transition-delay:0ms">
+      <dd class="stat__figure">350M+</dd>
+      <dt class="stat__label">Global catalog streams</dt>
+    </div>
+    <div class="stat reveal-card" style="transition-delay:120ms">
+      <dd class="stat__figure">4.8M</dd>
+      <dt class="stat__label">Monthly Spotify listeners</dt>
+    </div>
+    <div class="stat reveal-card" style="transition-delay:240ms">
+      <dd class="stat__figure">28</dd>
+      <dt class="stat__label">Sold-out headline tour dates</dt>
+    </div>
+    <div class="stat reveal-card" style="transition-delay:360ms">
+      <dd class="stat__figure">14</dd>
+      <dt class="stat__label">International festival appearances</dt>
+    </div>
+  </dl>
+</section>
+
+<!-- ═══════════════ PRESS ACCLAIM ═══════════════ -->
+<section id="press" class="press">
+  <div class="eyebrow reveal"><span class="eyebrow__dot"></span>Critical Acclaim</div>
+  <div class="reveal-line"><h2 class="press__heading reveal-line__text">What the critics say.</h2></div>
+  <div class="press__grid">
+    <div class="press__selector">
+      <button class="press__btn active" data-index="0" aria-label="Review by Rolling Stone">
+        <span class="press__btn-num">01</span>
+        <div>
+          <p class="press__btn-quote">Maria Concepcion delivers an undeniable masterclass in modern pop: dark, intoxicating, and vocally unmatched.</p>
+          <p class="press__btn-meta">Rolling Stone · Album Review</p>
+        </div>
+        <div class="press__btn-indicator"></div>
+      </button>
+      <button class="press__btn" data-index="1" aria-label="Review by Pitchfork">
+        <span class="press__btn-num">02</span>
+        <div>
+          <p class="press__btn-quote">A magnetic stage presence and singular production voice that proves alternative pop has found its next great auteur.</p>
+          <p class="press__btn-meta">Pitchfork · Live Feature</p>
+        </div>
+        <div class="press__btn-indicator"></div>
+      </button>
+      <button class="press__btn" data-index="2" aria-label="Review by Billboard">
+        <span class="press__btn-num">03</span>
+        <div>
+          <p class="press__btn-quote">The kind of generational vocal power and visual worldbuilding that turns concerts into religious experiences.</p>
+          <p class="press__btn-meta">Billboard · Emerging Artist Spotlight</p>
+        </div>
+        <div class="press__btn-indicator"></div>
+      </button>
+    </div>
+    <div class="press__featured">
+      <blockquote class="press__quote" id="press-quote"></blockquote>
+      <!-- Dynamic Featured Press Image with real photography from images folder -->
+      <figure class="liquid-image liquid-image--overlay" data-disp="disp-p1" id="press-fig">
+        <img class="liquid-image__img" id="press-img" src="images/singing.jpeg" alt="Maria Concepcion performing live with microphone under stage lighting" style="filter:url(#liquid-p1)">
+        <div class="liquid-image__veil"></div>
+        <div class="liquid-image__glow"></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BOOKING & CONTACT FOOTER ═══════════════ -->
+<footer id="contact" class="footer">
+  <div class="eyebrow reveal"><span class="eyebrow__dot"></span>Bookings &amp; Press</div>
+  <div class="reveal-line"><h2 class="footer__heading reveal-line__text">Ready to bring the show to your stage?</h2></div>
+  <p class="footer__subtitle reveal">Now booking festival slots, headline tour dates, brand partnerships, and sync licensing opportunities.</p>
+  
+  <div class="footer__email-wrap">
+    <div class="footer__copy-feedback">Email copied to clipboard!</div>
+    <a href="mailto:booking@mariaconcepcion.com" class="footer__email reveal" title="Click to email or right-click to copy">
+      booking@mariaconcepcion.com <span class="footer__arrow">↗</span>
+    </a>
+  </div>
+
+  <div class="footer__bar">
+    <div>
+      <p class="footer__signature">Maria Concepcion</p>
+      <p class="footer__subtitle-sm">Representation: WME &amp; Pulse Music Group.</p>
+    </div>
+    <nav class="footer__socials" aria-label="Social media profiles">
+      <a href="https://spotify.com" class="footer__social-link" target="_blank" rel="noopener">Spotify</a>
+      <a href="https://music.apple.com" class="footer__social-link" target="_blank" rel="noopener">Apple Music</a>
+      <a href="https://instagram.com" class="footer__social-link" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://youtube.com" class="footer__social-link" target="_blank" rel="noopener">YouTube</a>
+    </nav>
+    <p class="footer__copyright">© 2026 Maria Concepcion. All rights reserved.</p>
+  </div>
+</footer>
+
+</main>
+
+<!-- ═══════════════ ESM MODULE LOADER ═══════════════ -->
+<script type="importmap">
+{
+  "imports": {
+    "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.19/dist/lenis.mjs"
+  }
+}
+</script>
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>

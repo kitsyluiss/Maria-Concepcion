@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550" width="800" height="550">
+  <defs>
+    <radialGradient id="r4-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1c1c24"/>
+      <stop offset="60%" stop-color="#0f0f14"/>
+      <stop offset="100%" stop-color="#08080a"/>
+    </radialGradient>
+    <linearGradient id="r4-silver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="550" fill="url(#r4-bg)"/>
+
+  <!-- Brutalist Architecture / Horizon lines -->
+  <g stroke="rgba(243,241,234,0.18)" stroke-width="1">
+    <line x1="50" y1="180" x2="750" y2="180"/>
+    <line x1="50" y1="210" x2="750" y2="210" stroke-dasharray="2 4"/>
+    <line x1="50" y1="250" x2="750" y2="250"/>
+    <line x1="50" y1="300" x2="750" y2="300" stroke-width="2"/>
+    <line x1="50" y1="360" x2="750" y2="360" stroke-dasharray="6 6"/>
+  </g>
+
+  <!-- Central Seismic Monolith -->
+  <rect x="360" y="140" width="80" height="180" fill="none" stroke="url(#r4-silver)" stroke-width="2"/>
+  <rect x="375" y="155" width="50" height="150" fill="rgba(255,42,133,0.12)" stroke="#ff2a85" stroke-width="1"/>
+
+  <!-- Metadata -->
+  <text x="50" y="70" font-family="'Anton', sans-serif" font-size="16" letter-spacing="4" fill="#94a3b8">MARIA CONCEPCION</text>
+  <text x="750" y="70" font-family="'Onest', sans-serif" font-size="14" letter-spacing="3" fill="#807f78" text-anchor="end">DEBUT LP • 2019</text>
+
+  <text x="50" y="470" font-family="'Anton', sans-serif" font-size="64" letter-spacing="2" fill="#f3f1ea" text-transform="uppercase">SUBTERRANEAN</text>
+  <text x="50" y="505" font-family="'Onest', sans-serif" font-size="13" letter-spacing="2" fill="#807f78">INDIE BREAKTHROUGH • DEBUT STUDIO ALBUM • CATALOG MC-001</text>
+  <text x="750" y="505" font-family="'Onest', sans-serif" font-size="13" letter-spacing="3" fill="#94a3b8" text-anchor="end">LP-001 // VINYL</text>
+</svg>

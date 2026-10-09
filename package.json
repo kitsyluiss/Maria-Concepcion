@@ -1,0 +1,29 @@
+{
+  "name": "maria-concepcion-epk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official Electronic Press Kit (EPK) for Maria Concepcion — Dark Pop Vocalist, Songwriter, and Performer",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "lenis": "^1.3.19"
+  },
+  "keywords": [
+    "epk",
+    "maria-concepcion",
+    "electronic-press-kit",
+    "music",
+    "dark-pop",
+    "vite",
+    "lenis"
+  ],
+  "author": "Maria Concepcion",
+  "license": "UNLICENSED"
+}

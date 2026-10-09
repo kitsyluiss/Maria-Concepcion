@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550" width="800" height="550">
+  <defs>
+    <radialGradient id="r2-bg" cx="60%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#081824"/>
+      <stop offset="60%" stop-color="#040b12"/>
+      <stop offset="100%" stop-color="#08080a"/>
+    </radialGradient>
+    <linearGradient id="r2-cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+    <filter id="r2-glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="800" height="550" fill="url(#r2-bg)"/>
+
+  <!-- Radar / Waveform Scanlines -->
+  <g stroke="rgba(0,242,254,0.12)" stroke-width="1.2">
+    <circle cx="400" cy="230" r="170" fill="none"/>
+    <circle cx="400" cy="230" r="110" fill="none" stroke-dasharray="4 8"/>
+    <circle cx="400" cy="230" r="50" fill="none"/>
+    <line x1="200" y1="230" x2="600" y2="230"/>
+    <line x1="400" y1="50" x2="400" y2="410"/>
+  </g>
+
+  <!-- Oscilloscope Waveform -->
+  <path d="M 120 230 Q 220 130 280 230 T 360 230 T 400 110 T 440 350 T 480 230 T 540 230 T 680 230" 
+        fill="none" stroke="url(#r2-cyan)" stroke-width="3" filter="url(#r2-glow)"/>
+
+  <!-- Metadata -->
+  <text x="50" y="70" font-family="'Anton', sans-serif" font-size="16" letter-spacing="4" fill="#00f2fe">MARIA CONCEPCION</text>
+  <text x="750" y="70" font-family="'Onest', sans-serif" font-size="14" letter-spacing="3" fill="#807f78" text-anchor="end">EP • 2022</text>
+
+  <text x="50" y="465" font-family="'Anton', sans-serif" font-size="54" letter-spacing="2" fill="#f3f1ea" text-transform="uppercase">MIDNIGHT TRANSMISSION</text>
+  <text x="50" y="505" font-family="'Onest', sans-serif" font-size="13" letter-spacing="2" fill="#807f78">GOLD RECORD • 92M STREAMS • 108.4 MHZ FREQ SIGNAL</text>
+  <text x="750" y="505" font-family="'Onest', sans-serif" font-size="13" letter-spacing="3" fill="#00f2fe" text-anchor="end">EP-002 // BROADCAST</text>
+</svg>
