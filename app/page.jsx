@@ -11,6 +11,7 @@ import { Hero } from '../components/hero/Hero';
 import { Marquee } from '../components/marquee/Marquee';
 import { Bio } from '../components/bio/Bio';
 import { Discography } from '../components/discography/Discography';
+import { Videos } from '../components/videos/Videos';
 import { Stats } from '../components/stats/Stats';
 import { Press } from '../components/press/Press';
 import { Footer } from '../components/footer/Footer';
@@ -62,6 +63,9 @@ export default function HomePage() {
           activeTrack={activeTrack}
           onTogglePlay={playTrack}
         />
+
+        {/* Live Performance & Stage Visuals */}
+        <Videos />
 
         {/* Catalog & Tour Statistics */}
         <Stats />

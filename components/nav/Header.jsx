@@ -5,6 +5,7 @@ import { SoundToggle } from './SoundToggle';
 const navItems = [
   { href: '#bio', label: 'Bio' },
   { href: '#releases', label: 'Releases' },
+  { href: '#videos', label: 'Visuals' },
   { href: '#stats', label: 'Stats' },
   { href: '#press', label: 'Press' },
   { href: '#contact', label: 'Contact' },
