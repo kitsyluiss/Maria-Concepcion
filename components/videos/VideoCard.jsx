@@ -155,6 +155,8 @@ export function VideoCard({
               className="liquid-image__img w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
               src={video.cover}
               alt={`${video.title} performance cover`}
+              loading="lazy"
+              decoding="async"
               style={{ filter: `url(#${video.filterId})` }}
             />
           )}
