@@ -425,7 +425,31 @@ function closeAllVideos() {
     const slot = player.querySelector(".release-card__iframe-slot");
     if (slot) slot.innerHTML = "";
   });
+  document.querySelectorAll(".liquid-image__video").forEach(v => {
+    v.play().catch(() => {});
+  });
 }
+
+// Ensure 5-second video snippet auto-loops inside cards
+document.querySelectorAll(".liquid-image__video").forEach(video => {
+  video.muted = true;
+  video.play().catch(() => {});
+  // Strictly loop within 5.0 seconds
+  video.addEventListener("timeupdate", () => {
+    if (video.currentTime >= 5.0) {
+      video.currentTime = 0;
+    }
+  });
+});
+
+// Clicking the card cover also triggers video playback
+document.querySelectorAll(".release-card__cover-wrap").forEach(wrap => {
+  wrap.addEventListener("click", (e) => {
+    if (e.target.closest(".release-card__actions") || e.target.closest(".release-card__video-player")) return;
+    const videoBtn = wrap.querySelector(".release-card__video-btn");
+    if (videoBtn) videoBtn.click();
+  });
+});
 
 // 5-Second Snippet buttons
 document.querySelectorAll(".release-card__snippet-btn").forEach(btn => {
@@ -484,6 +508,9 @@ document.querySelectorAll(".release-card__video-btn").forEach(btn => {
     const card = btn.closest(".release-card");
     if (!card) return;
 
+    const bgVideo = card.querySelector(".liquid-image__video");
+    if (bgVideo) bgVideo.pause();
+
     const player = card.querySelector(".release-card__video-player");
     const slot = card.querySelector(".release-card__iframe-slot");
     if (player && slot) {
@@ -502,6 +529,11 @@ document.querySelectorAll(".release-card__close-video").forEach(btn => {
       player.classList.remove("active");
       const slot = player.querySelector(".release-card__iframe-slot");
       if (slot) slot.innerHTML = "";
+    }
+    const card = btn.closest(".release-card");
+    if (card) {
+      const bgVideo = card.querySelector(".liquid-image__video");
+      if (bgVideo) bgVideo.play().catch(() => {});
     }
   });
 });

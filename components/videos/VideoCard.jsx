@@ -20,6 +20,7 @@ export function VideoCard({
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const timerRef = useRef(null);
+  const videoRef = useRef(null);
 
   const rafRef = useRef(null);
   const stateRef = useRef({
@@ -92,6 +93,13 @@ export function VideoCard({
   };
 
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
+
+  useEffect(() => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       if (timerRef.current) clearInterval(timerRef.current);
@@ -124,12 +132,18 @@ export function VideoCard({
     if (isPlayingSnippet && onToggleSnippet) {
       onToggleSnippet(video.id); // Stop snippet
     }
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
     setIsPlayingVideo(true);
   };
 
   const handleCloseVideo = (e) => {
     e.stopPropagation();
     setIsPlayingVideo(false);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
   };
 
   return (
@@ -145,14 +159,35 @@ export function VideoCard({
         <figure
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={handleWatchVideo}
           className="liquid-image liquid-image--overlay aspect-[16/11] bg-surface rounded-sm border border-line overflow-hidden relative cursor-pointer"
         >
-          <img
-            className="liquid-image__img w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
-            src={video.cover}
-            alt={`${video.title} performance cover`}
-            style={{ filter: `url(#${video.filterId})` }}
-          />
+          {video.snippetVideo ? (
+            <video
+              ref={videoRef}
+              src={video.snippetVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster={video.cover}
+              onTimeUpdate={(e) => {
+                if (e.currentTarget.currentTime >= 5.0) {
+                  e.currentTarget.currentTime = 0;
+                }
+              }}
+              className="liquid-image__video w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+              style={{ filter: `url(#${video.filterId})` }}
+            />
+          ) : (
+            <img
+              className="liquid-image__img w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+              src={video.cover}
+              alt={`${video.title} performance cover`}
+              style={{ filter: `url(#${video.filterId})` }}
+            />
+          )}
 
           {/* 1. Grayscale-to-Color Reveal Overlay */}
           <div className="vfx-grayscale-overlay" />
@@ -168,7 +203,10 @@ export function VideoCard({
         {!isPlayingVideo && (
           <div className="release-card__actions absolute bottom-4 right-4 z-10 flex items-center gap-2.5">
             <button
-              onClick={() => onToggleSnippet && onToggleSnippet(video.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onToggleSnippet) onToggleSnippet(video.id);
+              }}
               className={`release-card__snippet-btn px-3.5 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider backdrop-blur-md border transition-all duration-300 flex items-center gap-1.5 ${
                 isPlayingSnippet
                   ? 'bg-accent text-[#08080a] border-accent shadow-[0_0_15px_rgba(255,42,133,0.5)]'
@@ -183,7 +221,10 @@ export function VideoCard({
             </button>
 
             <button
-              onClick={handleWatchVideo}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleWatchVideo();
+              }}
               className="release-card__video-btn px-3.5 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider bg-[#08080a]/85 text-foreground border border-line-strong backdrop-blur-md hover:border-accent hover:text-accent transition-all duration-300 flex items-center gap-1.5"
               aria-label={`Watch full video of ${video.title}`}
             >
