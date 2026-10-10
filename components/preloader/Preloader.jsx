@@ -25,8 +25,11 @@ export function Preloader({ onComplete }) {
     // Studio-grade check: wait ONLY for the critical Hero image and fonts
     const heroImagePromise = new Promise((resolve) => {
       const img = new Image();
-      img.onload = resolve;
-      img.onerror = resolve; // Proceed even if it fails so it doesn't hang forever
+      img.onload = () => {
+        // Ensure the image is fully decoded and painted, not just downloaded
+        img.decode().then(resolve).catch(resolve);
+      };
+      img.onerror = resolve; 
       img.src = '/images/Maria Concepcion portrait.png';
     });
 
@@ -34,8 +37,8 @@ export function Preloader({ onComplete }) {
 
     const assetPromise = Promise.all([heroImagePromise, fontPromise]);
 
-    // Maximum fallback timeout (2 seconds) so it never hangs indefinitely
-    const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 2000));
+    // Give it up to 8 seconds to download the heavy hero portrait before forcing open
+    const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 8000));
 
     Promise.race([assetPromise, timeoutPromise]).then(() => {
       isAssetsLoaded = true;
