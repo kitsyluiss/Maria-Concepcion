@@ -20,7 +20,7 @@ export default function HomePage() {
   useSmoothScroll();
 
   // Web Audio synthesizer engine for ambient soundscapes & track stems
-  const { isPlayingAmbient, activeTrack, toggleAmbient, playTrack } = useAudioEngine();
+  const { isPlayingAmbient, activeTrack, toggleAmbient, playTrack, playSnippet } = useAudioEngine();
 
   // Mobile navigation drawer state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,7 +58,10 @@ export default function HomePage() {
         <Bio />
 
         {/* Live Performance Archives & Master Repertoire (Staggered Layout) */}
-        <Videos />
+        <Videos
+          activeTrack={activeTrack}
+          onToggleSnippet={playSnippet}
+        />
 
         {/* Catalog & Tour Statistics */}
         <Stats />

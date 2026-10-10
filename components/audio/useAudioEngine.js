@@ -8,6 +8,7 @@ export function useAudioEngine() {
   const audioCtxRef = useRef(null);
   const activeNodesRef = useRef([]);
   const ambientNodesRef = useRef([]);
+  const snippetTimerRef = useRef(null);
 
   const getAudioContext = useCallback(() => {
     if (!audioCtxRef.current && typeof window !== 'undefined') {
@@ -21,6 +22,10 @@ export function useAudioEngine() {
   }, []);
 
   const stopActiveTrack = useCallback(() => {
+    if (snippetTimerRef.current) {
+      clearTimeout(snippetTimerRef.current);
+      snippetTimerRef.current = null;
+    }
     activeNodesRef.current.forEach(node => {
       try {
         if (node.stop) node.stop();
@@ -37,7 +42,7 @@ export function useAudioEngine() {
 
     if (activeTrack === trackId) {
       stopActiveTrack();
-      return;
+      return false;
     }
 
     stopActiveTrack();
@@ -50,8 +55,8 @@ export function useAudioEngine() {
     masterGain.connect(ctx.destination);
     activeNodesRef.current.push(masterGain);
 
-    if (trackId === 'neon-requiem') {
-      const freqs = [65.41, 130.81, 155.56, 196.00]; // C minor dark synth chord
+    if (trackId === 'royals' || trackId === 'neon-requiem') {
+      const freqs = [65.41, 130.81, 155.56, 196.00]; // C minor chord + vocal live shimmer
       freqs.forEach((f, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -71,66 +76,91 @@ export function useAudioEngine() {
         osc.start(t);
         activeNodesRef.current.push(osc, gain, filter);
       });
-    } else if (trackId === 'midnight-transmission') {
+    } else if (trackId === 'acoustic-session' || trackId === 'midnight-transmission') {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sawtooth';
+      osc.type = 'sine';
       osc.frequency.setValueAtTime(110, t);
 
       const filter = ctx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.Q.setValueAtTime(4, t);
+      filter.Q.setValueAtTime(3.5, t);
       filter.frequency.setValueAtTime(320, t);
 
       const lfo = ctx.createOscillator();
       const lfoGain = ctx.createGain();
-      lfo.frequency.setValueAtTime(4.5, t);
-      lfoGain.gain.setValueAtTime(180, t);
+      lfo.frequency.setValueAtTime(3.5, t);
+      lfoGain.gain.setValueAtTime(120, t);
       lfo.connect(filter.frequency);
       lfo.start(t);
 
-      gain.gain.setValueAtTime(0.28, t);
+      gain.gain.setValueAtTime(0.3, t);
       osc.connect(filter);
       filter.connect(gain);
       gain.connect(masterGain);
       osc.start(t);
       activeNodesRef.current.push(osc, gain, filter, lfo, lfoGain);
-    } else if (trackId === 'afterglow') {
+    } else if (trackId === 'viande' || trackId === 'afterglow') {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sine';
+      osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(55, t); // A1 bass
 
       const lfo = ctx.createOscillator();
       const lfoGain = ctx.createGain();
-      lfo.frequency.setValueAtTime(2.13, t); // ~128 BPM pulse
-      lfoGain.gain.setValueAtTime(0.18, t);
+      lfo.frequency.setValueAtTime(2.07, t); // ~124 BPM pulse
+      lfoGain.gain.setValueAtTime(0.15, t);
       lfo.connect(gain.gain);
       lfo.start(t);
 
-      gain.gain.setValueAtTime(0.35, t);
-      osc.connect(gain);
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(350, t);
+
+      gain.gain.setValueAtTime(0.32, t);
+      osc.connect(filter);
+      filter.connect(gain);
       gain.connect(masterGain);
       osc.start(t);
-      activeNodesRef.current.push(osc, gain, lfo, lfoGain);
-    } else if (trackId === 'subterranean') {
+      activeNodesRef.current.push(osc, gain, filter, lfo, lfoGain);
+    } else if (trackId === 'master-repertoire' || trackId === 'subterranean') {
       const sub = ctx.createOscillator();
       const subGain = ctx.createGain();
       sub.type = 'triangle';
-      sub.frequency.setValueAtTime(43.65, t); // F1 sub drone
+      sub.frequency.setValueAtTime(65.41, t); // C2
 
       const distFilter = ctx.createBiquadFilter();
       distFilter.type = 'lowpass';
-      distFilter.frequency.setValueAtTime(200, t);
+      distFilter.frequency.setValueAtTime(280, t);
 
-      subGain.gain.setValueAtTime(0.38, t);
+      subGain.gain.setValueAtTime(0.35, t);
       sub.connect(distFilter);
       distFilter.connect(subGain);
       subGain.connect(masterGain);
       sub.start(t);
       activeNodesRef.current.push(sub, distFilter, subGain);
     }
+
+    return true;
   }, [activeTrack, getAudioContext, stopActiveTrack]);
+
+  const playSnippet = useCallback((trackId, durationMs = 5000, onEnd) => {
+    if (snippetTimerRef.current) {
+      clearTimeout(snippetTimerRef.current);
+      snippetTimerRef.current = null;
+    }
+    const isPlaying = playTrack(trackId);
+    if (!isPlaying) {
+      if (onEnd) onEnd();
+      return false;
+    }
+    snippetTimerRef.current = setTimeout(() => {
+      stopActiveTrack();
+      snippetTimerRef.current = null;
+      if (onEnd) onEnd();
+    }, durationMs);
+    return true;
+  }, [playTrack, stopActiveTrack]);
 
   const toggleAmbient = useCallback(() => {
     const ctx = getAudioContext();
@@ -196,6 +226,7 @@ export function useAudioEngine() {
     activeTrack,
     toggleAmbient,
     playTrack,
+    playSnippet,
     stopActiveTrack
   };
 }
