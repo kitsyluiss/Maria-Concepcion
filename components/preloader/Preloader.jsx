@@ -23,15 +23,24 @@ export function Preloader({ onComplete }) {
     let isAssetsLoaded = false;
 
     // Studio-grade check: wait for window load (images/videos) AND fonts
-    Promise.all([
+    const assetPromise = Promise.all([
       new Promise((resolve) => {
         if (document.readyState === 'complete') resolve();
         else window.addEventListener('load', resolve, { once: true });
       }),
       document.fonts ? document.fonts.ready : Promise.resolve(),
-    ]).then(() => {
+    ]);
+
+    // Maximum fallback timeout (2 seconds) so it never hangs indefinitely on slow connections
+    const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 2000));
+
+    Promise.race([assetPromise, timeoutPromise]).then(() => {
       isAssetsLoaded = true;
     });
+
+    // Lock scrolling while preloader is active
+    document.body.style.overflow = 'hidden';
+    if (window.lenis) window.lenis.stop();
 
     function tick(now) {
       let elapsed = (now - t0) / duration;
@@ -66,8 +75,18 @@ export function Preloader({ onComplete }) {
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
+      document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     };
   }, [onComplete]);
+
+  // Unlock scrolling smoothly as soon as the preloader component disappears
+  useEffect(() => {
+    if (!shouldRender) {
+      document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
+    }
+  }, [shouldRender]);
 
   return (
     <AnimatePresence>
