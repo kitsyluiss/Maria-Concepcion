@@ -22,16 +22,19 @@ export function Preloader({ onComplete }) {
     let rafId = null;
     let isAssetsLoaded = false;
 
-    // Studio-grade check: wait for window load (images/videos) AND fonts
-    const assetPromise = Promise.all([
-      new Promise((resolve) => {
-        if (document.readyState === 'complete') resolve();
-        else window.addEventListener('load', resolve, { once: true });
-      }),
-      document.fonts ? document.fonts.ready : Promise.resolve(),
-    ]);
+    // Studio-grade check: wait ONLY for the critical Hero image and fonts
+    const heroImagePromise = new Promise((resolve) => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = resolve; // Proceed even if it fails so it doesn't hang forever
+      img.src = '/images/Maria Concepcion portrait.png';
+    });
 
-    // Maximum fallback timeout (2 seconds) so it never hangs indefinitely on slow connections
+    const fontPromise = document.fonts ? document.fonts.ready : Promise.resolve();
+
+    const assetPromise = Promise.all([heroImagePromise, fontPromise]);
+
+    // Maximum fallback timeout (2 seconds) so it never hangs indefinitely
     const timeoutPromise = new Promise((resolve) => setTimeout(resolve, 2000));
 
     Promise.race([assetPromise, timeoutPromise]).then(() => {
