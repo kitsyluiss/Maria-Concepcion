@@ -18,17 +18,37 @@ export function Preloader({ onComplete }) {
     }
 
     const t0 = performance.now();
-    const duration = 1600;
+    const duration = 1600; // Minimum visual duration for the counter
     let rafId = null;
+    let isAssetsLoaded = false;
+
+    // Studio-grade check: wait for window load (images/videos) AND fonts
+    Promise.all([
+      new Promise((resolve) => {
+        if (document.readyState === 'complete') resolve();
+        else window.addEventListener('load', resolve, { once: true });
+      }),
+      document.fonts ? document.fonts.ready : Promise.resolve(),
+    ]).then(() => {
+      isAssetsLoaded = true;
+    });
 
     function tick(now) {
-      const elapsed = Math.min((now - t0) / duration, 1);
+      let elapsed = (now - t0) / duration;
+      
+      // Hold the counter at 99% if assets are still loading
+      if (!isAssetsLoaded && elapsed >= 0.99) {
+        elapsed = 0.99;
+      }
+      
+      if (elapsed > 1) elapsed = 1;
+
       // Ease out cubic
-      const eased = 1 - Math.pow(1 - elapsed, 3);
+      const eased = 1 - Math.pow(1 - Math.min(elapsed, 1), 3);
       const val = Math.floor(eased * 100);
       setCount(val);
 
-      if (elapsed < 1) {
+      if (elapsed < 1 || !isAssetsLoaded) {
         rafId = requestAnimationFrame(tick);
       } else {
         setCount(100);

@@ -15,9 +15,11 @@ export function useSmoothScroll() {
       try {
         const Lenis = (await import('lenis')).default;
         lenisInstance = new Lenis({
+          lerp: 0.065, // Low lerp for silky smooth inertia
+          wheelMultiplier: 1.1,
           smoothWheel: true,
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          gestureOrientation: 'vertical',
+          normalizeWheel: false,
         });
 
         window.lenis = lenisInstance;
