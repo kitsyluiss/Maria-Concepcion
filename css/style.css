@@ -537,16 +537,17 @@ main {
 .hero__name {
   position: absolute;
   inset-inline: 0;
-  bottom: 9vh;
+  bottom: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: var(--font-display);
   text-transform: uppercase;
-  line-height: .82;
-  letter-spacing: -.02em;
+  line-height: .85;
+  letter-spacing: -.04em;
   color: var(--accent);
-  font-size: clamp(3.2rem, 16.5vw, 5.5rem);
+  font-size: 33vw;
+  width: 100vw;
   z-index: 10;
   user-select: none;
 }

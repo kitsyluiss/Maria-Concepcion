@@ -55,37 +55,49 @@ export function Hero() {
       </div>
 
       {/* Massive Typographic Headline */}
-      <h1 className="hero__name absolute inset-x-0 bottom-[9vh] sm:bottom-0 sm:translate-y-[6%] flex flex-col items-center font-display uppercase leading-[0.82] sm:leading-[0.78] tracking-tight text-accent text-[17vw] sm:text-[24vw] lg:text-[26vw] z-10 select-none">
-        <span className="hero__name-line flex" aria-hidden="true">
-          {firstName.map((char, i) => (
-            <span key={i} className="hero__name-lw inline-block overflow-hidden align-bottom">
-              <motion.span
-                custom={i}
-                variants={letterVariant}
-                initial="hidden"
-                animate="visible"
-                className="hero__name-letter inline-block"
-              >
-                {char}
-              </motion.span>
+      <h1 className="hero__name absolute inset-x-0 bottom-[12vh] sm:bottom-0 sm:translate-y-[6%] flex flex-col items-start sm:items-center font-display uppercase leading-[0.82] sm:leading-[0.78] tracking-tight text-accent text-[32vw] sm:text-[24vw] lg:text-[26vw] z-10 select-none overflow-hidden sm:overflow-visible">
+        
+        {/* MARIA Row */}
+        <div className="flex w-max animate-marquee sm:animate-none sm:w-auto">
+          {[...Array(4)].map((_, blockIdx) => (
+            <span key={blockIdx} className={`hero__name-line flex pr-12 sm:pr-0 ${blockIdx > 0 ? 'sm:hidden' : ''}`} aria-hidden="true">
+              {firstName.map((char, i) => (
+                <span key={`${blockIdx}-${i}`} className="hero__name-lw inline-block overflow-hidden align-bottom">
+                  <motion.span
+                    custom={i}
+                    variants={blockIdx === 0 ? letterVariant : {}}
+                    initial={blockIdx === 0 ? "hidden" : "visible"}
+                    animate="visible"
+                    className="hero__name-letter inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                </span>
+              ))}
             </span>
           ))}
-        </span>
-        <span className="hero__name-line flex" aria-hidden="true">
-          {lastName.map((char, i) => (
-            <span key={i} className="hero__name-lw inline-block overflow-hidden align-bottom">
-              <motion.span
-                custom={i + firstName.length}
-                variants={letterVariant}
-                initial="hidden"
-                animate="visible"
-                className="hero__name-letter inline-block"
-              >
-                {char}
-              </motion.span>
+        </div>
+
+        {/* CONCEPCION Row */}
+        <div className="flex w-max animate-marquee sm:animate-none sm:w-auto" style={{ animationDirection: 'reverse' }}>
+          {[...Array(4)].map((_, blockIdx) => (
+            <span key={blockIdx} className={`hero__name-line flex pr-12 sm:pr-0 ${blockIdx > 0 ? 'sm:hidden' : ''}`} aria-hidden="true">
+              {lastName.map((char, i) => (
+                <span key={`${blockIdx}-${i}`} className="hero__name-lw inline-block overflow-hidden align-bottom">
+                  <motion.span
+                    custom={i + firstName.length}
+                    variants={blockIdx === 0 ? letterVariant : {}}
+                    initial={blockIdx === 0 ? "hidden" : "visible"}
+                    animate="visible"
+                    className="hero__name-letter inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                </span>
+              ))}
             </span>
           ))}
-        </span>
+        </div>
       </h1>
 
       {/* Hero Portrait Cutout with Liquid Outline Displacement */}

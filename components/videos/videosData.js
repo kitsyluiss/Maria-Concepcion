@@ -45,10 +45,10 @@ export const videos = [
     category: 'Repertoire & Live Setlists',
     badge: '300+ Songs',
     cover: '/assets/release-04.svg',
-    snippetVideo: null,
+    snippetVideo: '/videos/4th video.mp4',
     filterId: 'liquid-r4',
     dispId: 'disp-r4',
-    vimeoId: '1234523503',
+    vimeoId: null,
     blurb: 'Expansive multi-genre repertoire: power ballads, classic rock, soulful R&B, dance pop, 80s/90s hits, duets, and iconic Filipino OPM medleys.',
   },
 ];

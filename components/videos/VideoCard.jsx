@@ -170,7 +170,7 @@ export function VideoCard({
         </figure>
 
         {/* Action Button: Watch Video */}
-        {!isPlayingVideo && (
+        {!isPlayingVideo && video.vimeoId && (
           <div className="release-card__actions absolute bottom-4 right-4 z-10 flex items-center">
             <button
               onClick={(e) => {
