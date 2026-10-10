@@ -959,7 +959,8 @@ main {
   transition: border-color 340ms ease, box-shadow 340ms ease;
 }
 
-.video-card:hover .video-card__frame-wrap {
+.video-card:hover .video-card__frame-wrap,
+.release-card:hover .video-card__frame-wrap {
   border-color: var(--accent);
   box-shadow: 0 10px 30px rgba(255, 42, 133, 0.14);
 }

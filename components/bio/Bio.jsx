@@ -6,23 +6,23 @@ import { PillarItem } from './PillarItem';
 const pillars = [
   {
     index: '01',
-    title: 'Unfiltered Lyrical Edge',
-    blurb: 'Writing every song from visceral lived experience. No ghostwriting, no watered-down sentimentality.',
+    title: 'Versatile Vocal Mastery',
+    blurb: 'Effortlessly traversing power ballads, classic rock anthems, soulful R&B, dance pop, and timeless Filipino OPM with crystalline pitch and emotional depth.',
   },
   {
     index: '02',
-    title: 'Sculpted Electronic Production',
-    blurb: 'Fusing modular analog synthesizers with modern trap percussion and orchestral sub-bass.',
+    title: 'Dynamic Band Leadership',
+    blurb: 'A seasoned frontwoman with natural band chemistry. Commands the room with magnetic presence, tight musical cues, and an electric connection with audiences.',
   },
   {
     index: '03',
-    title: 'Immersive Live Experience',
-    blurb: 'Transforming concerts into high-contrast visual performances with synchronized lighting and choreography.',
+    title: 'International Stage Pedigree',
+    blurb: 'Over two decades headlining luxury hotel lounges and premier concert venues across Tokyo, Dubai, Abu Dhabi, Changchun, and Southeast Asia.',
   },
   {
     index: '04',
-    title: 'Direct-to-Fan Independence',
-    blurb: 'Building an engaged community across digital platforms that champions authenticity over algorithm chasing.',
+    title: 'Master 300+ Song Repertoire',
+    blurb: 'A vast multi-genre catalog spanning 80s & 90s classics, classic rock, modern radio hits, acoustic duets, and iconic medleys tailored for any venue.',
   },
 ];
 
@@ -40,7 +40,7 @@ export function Bio() {
             className="eyebrow flex items-center gap-3 font-sans text-xs font-medium uppercase tracking-[0.22em] text-muted mb-6"
           >
             <span className="eyebrow__dot w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_#ff2a85] shrink-0" />
-            The Artistry
+            The Performer
           </motion.div>
 
           <div className="reveal-line overflow-hidden mb-6">
@@ -51,7 +51,7 @@ export function Bio() {
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               className="bio__heading font-display text-4xl sm:text-5xl uppercase leading-none"
             >
-              Sound that commands the room.
+              A voice that commands the room.
             </motion.h2>
           </div>
 
@@ -62,7 +62,7 @@ export function Bio() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="bio__lead font-sans text-xl leading-relaxed text-muted max-w-[46ch]"
           >
-            For eight years Maria Concepcion has carved out a singular lane in modern pop — blending industrial synth textures with soaring, classically grounded vocal hooks. From intimate basement venues to international festival stages, her trajectory is defined by razor-sharp artistic control and a dedicated global fanbase.
+            With over 26 years of international stage experience, Ma. Katrina Concepcion is a remarkably versatile vocalist celebrated for captivating live performances. Having graced stages from intimate acoustic lounges to high-energy hotel residencies across Japan, Dubai, Abu Dhabi, China, Malaysia, and Indonesia, she specializes in delivering powerful live vocals, engaging stage presence, and unwavering professionalism.
           </motion.p>
         </div>
 

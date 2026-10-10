@@ -10,7 +10,6 @@ import { MobileDrawer } from '../components/nav/MobileDrawer';
 import { Hero } from '../components/hero/Hero';
 import { Marquee } from '../components/marquee/Marquee';
 import { Bio } from '../components/bio/Bio';
-import { Discography } from '../components/discography/Discography';
 import { Videos } from '../components/videos/Videos';
 import { Stats } from '../components/stats/Stats';
 import { Press } from '../components/press/Press';
@@ -58,13 +57,7 @@ export default function HomePage() {
         {/* Bio / Artistry Story */}
         <Bio />
 
-        {/* Key Releases & Interactive Sound Previews */}
-        <Discography
-          activeTrack={activeTrack}
-          onTogglePlay={playTrack}
-        />
-
-        {/* Live Performance & Stage Visuals */}
+        {/* Live Performance Archives & Master Repertoire (Staggered Layout) */}
         <Videos />
 
         {/* Catalog & Tour Statistics */}

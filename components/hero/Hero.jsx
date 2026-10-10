@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { HeroPortrait } from './HeroPortrait';
 
-const roles = ['Vocalist', 'Songwriter', 'Performer', 'Visionary'];
+const roles = ['Vocalist', 'Live Performer', 'Band Leader', 'Session Artist'];
 const firstName = 'Maria'.split('');
 const lastName = 'Concepcion'.split('');
 
@@ -50,7 +50,7 @@ export function Hero() {
           transition={{ duration: 0.76, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
           className="hero__statement max-w-sm font-sans text-base leading-relaxed text-muted text-left sm:text-right"
         >
-          Creating immersive sonic landscapes where dark electronic pop meets raw, unapologetic vulnerability. Over 350M streams, arena-scale energy, zero compromise.
+          A powerhouse vocalist and captivating performer with over 26 years of stage command. Delivering world-class live vocals across international hotel residencies, headline live gigs, and premier corporate events.
         </motion.p>
       </div>
 

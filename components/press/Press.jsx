@@ -114,7 +114,7 @@ export function Press() {
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           className="press__heading font-display text-4xl sm:text-5xl uppercase leading-none"
         >
-          What the critics say.
+          Live acclaim across global stages.
         </motion.h2>
       </div>
 

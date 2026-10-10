@@ -3,11 +3,10 @@
 import { motion } from 'framer-motion';
 import { CopyEmailBtn } from './CopyEmailBtn';
 
-const socials = [
-  { href: 'https://spotify.com', label: 'Spotify' },
-  { href: 'https://music.apple.com', label: 'Apple Music' },
-  { href: 'https://instagram.com', label: 'Instagram' },
-  { href: 'https://youtube.com', label: 'YouTube' },
+const contacts = [
+  { href: 'tel:+639776281086', label: '+63 977 628 1086' },
+  { href: 'mailto:cma.katrina@yahoo.com', label: 'Email Inquiries' },
+  { href: '#videos', label: 'Live Reel' },
 ];
 
 export function Footer() {
@@ -21,7 +20,7 @@ export function Footer() {
         className="eyebrow flex items-center gap-3 font-sans text-xs font-medium uppercase tracking-[0.22em] text-muted mb-6"
       >
         <span className="eyebrow__dot w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_#ff2a85] shrink-0" />
-        Bookings &amp; Press
+        Bookings &amp; Inquiries
       </motion.div>
 
       <div className="reveal-line overflow-hidden mb-6">
@@ -32,7 +31,7 @@ export function Footer() {
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           className="footer__heading font-display text-4xl sm:text-5xl uppercase leading-none"
         >
-          Ready to bring the show to your stage?
+          Ready to bring world-class vocals to your stage?
         </motion.h2>
       </div>
 
@@ -43,7 +42,7 @@ export function Footer() {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
         className="footer__subtitle font-sans text-xl leading-relaxed text-muted mb-10 max-w-[46ch]"
       >
-        Now booking festival slots, headline tour dates, brand partnerships, and sync licensing opportunities.
+        Available for international hotel residencies, headline live band gigs, corporate galas, weddings, and private events.
       </motion.p>
 
       {/* Interactive Email Copy Button */}
@@ -53,29 +52,27 @@ export function Footer() {
       <div className="footer__bar flex flex-wrap justify-between items-end gap-8 border-t border-line py-10">
         <div>
           <p className="footer__signature font-display text-3xl sm:text-4xl uppercase leading-none mb-2">
-            Maria Concepcion
+            Ma. Katrina Concepcion
           </p>
           <p className="footer__subtitle-sm font-sans text-xs text-muted tracking-[0.14em]">
-            Representation: WME &amp; Pulse Music Group.
+            Vocalist &amp; Live Performer · Direct: +63 977 628 1086
           </p>
         </div>
 
-        <nav className="footer__socials flex gap-8 flex-wrap" aria-label="Social media profiles">
-          {socials.map((soc) => (
+        <nav className="footer__socials flex gap-8 flex-wrap" aria-label="Booking and professional contact channels">
+          {contacts.map((item) => (
             <a
-              key={soc.label}
-              href={soc.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              key={item.label}
+              href={item.href}
               className="footer__social-link relative font-sans text-xs font-medium uppercase tracking-[0.22em] text-muted hover:text-foreground transition-colors duration-300"
             >
-              {soc.label}
+              {item.label}
             </a>
           ))}
         </nav>
 
         <p className="footer__copyright font-sans text-xs text-muted tracking-[0.14em]">
-          © 2026 Maria Concepcion. All rights reserved.
+          © 2026 Ma. Katrina Concepcion. All rights reserved.
         </p>
       </div>
     </footer>

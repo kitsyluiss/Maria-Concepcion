@@ -97,28 +97,28 @@ function runPreloader() {
 // ── Press Data & Real Photography ──
 const pressData = [
   {
-    quote: "Maria Concepcion delivers an undeniable masterclass in modern pop: dark, intoxicating, and vocally unmatched.",
+    quote: "Katrina delivers an electrifying vocal masterclass every single night. Her vocal power, effortless charisma, and rapport with international audiences set a gold standard for live headliners.",
     image: "images/singing.jpeg",
     filter: "liquid-p1",
     disp: "disp-p1",
     turb: "turb-p1",
-    alt: "Maria Concepcion performing live with microphone under stage lighting"
+    alt: "Ma. Katrina Concepcion performing live with microphone under stage lighting"
   },
   {
-    quote: "A magnetic stage presence and singular production voice that proves alternative pop has found its next great auteur.",
+    quote: "A rare vocalist who commands both intimate, heart-wrenching acoustic ballads and soaring classic rock anthems with effortless precision. A powerhouse frontwoman and crowd magnet.",
     image: "images/portrait standing.jpeg",
     filter: "liquid-p2",
     disp: "disp-p2",
     turb: "turb-p2",
-    alt: "Maria Concepcion standing in dramatic editorial studio portrait"
+    alt: "Ma. Katrina Concepcion standing in dramatic editorial studio portrait"
   },
   {
-    quote: "The kind of generational vocal power and visual worldbuilding that turns concerts into religious experiences.",
+    quote: "An astonishing 300+ song repertoire spanning decades and genres. Whether fronting a full live band or performing stripped acoustic sets, her vocal stamina and charisma are second to none.",
     image: "images/portrait.jpeg",
     filter: "liquid-p3",
     disp: "disp-p3",
     turb: "turb-p3",
-    alt: "Maria Concepcion intense close-up portrait"
+    alt: "Ma. Katrina Concepcion intense close-up portrait"
   }
 ];
 
@@ -441,7 +441,7 @@ const feedbackBadge = document.querySelector(".footer__copy-feedback");
 if (emailLink && feedbackBadge) {
   emailLink.addEventListener("contextmenu", (e) => {
     e.preventDefault();
-    navigator.clipboard.writeText("booking@mariaconcepcion.com").then(() => {
+    navigator.clipboard.writeText("cma.katrina@yahoo.com").then(() => {
       feedbackBadge.classList.add("show");
       setTimeout(() => feedbackBadge.classList.remove("show"), 2000);
     });

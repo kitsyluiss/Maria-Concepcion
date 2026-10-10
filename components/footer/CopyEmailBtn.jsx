@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export function CopyEmailBtn() {
   const [copied, setCopied] = useState(false);
-  const email = 'booking@mariaconcepcion.com';
+  const email = 'cma.katrina@yahoo.com';
 
   const handleCopy = (e) => {
     // Allows regular click to mailto, but right-click or long-press copies

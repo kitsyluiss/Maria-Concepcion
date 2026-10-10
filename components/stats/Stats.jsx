@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 import { StatItem } from './StatItem';
 
 const statsData = [
-  { figure: '350M+', label: 'Global catalog streams' },
-  { figure: '4.8M', label: 'Monthly Spotify listeners' },
-  { figure: '28', label: 'Sold-out headline tour dates' },
-  { figure: '14', label: 'International festival appearances' },
+  { figure: '26+', label: 'Years commanding live stages' },
+  { figure: '300+', label: 'Active repertoire songs across 8 genres' },
+  { figure: '9', label: 'International residencies across 6 countries' },
+  { figure: '3,500+', label: 'Live sets, hotel residencies & galas' },
 ];
 
 export function Stats() {
@@ -32,7 +32,7 @@ export function Stats() {
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           className="stats__heading font-display text-4xl sm:text-5xl uppercase leading-none"
         >
-          Global reach, measured.
+          A career on stage, measured.
         </motion.h2>
       </div>
 

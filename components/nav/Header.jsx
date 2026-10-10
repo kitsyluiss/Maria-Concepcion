@@ -4,10 +4,9 @@ import { SoundToggle } from './SoundToggle';
 
 const navItems = [
   { href: '#bio', label: 'Bio' },
-  { href: '#releases', label: 'Releases' },
-  { href: '#videos', label: 'Visuals' },
+  { href: '#videos', label: 'Videos' },
   { href: '#stats', label: 'Stats' },
-  { href: '#press', label: 'Press' },
+  { href: '#press', label: 'Acclaim' },
   { href: '#contact', label: 'Contact' },
 ];
 
