@@ -5,7 +5,7 @@ import Script from 'next/script';
 import { videos } from './videosData';
 import { VideoCard } from './VideoCard';
 
-export function Videos({ activeTrack, onToggleSnippet }) {
+export function Videos() {
   return (
     <section id="videos" className="discography py-section px-gutter">
       {/* Vimeo Player SDK */}
@@ -49,8 +49,6 @@ export function Videos({ activeTrack, onToggleSnippet }) {
             key={video.id}
             video={video}
             isOdd={idx % 2 === 1}
-            isPlayingSnippet={activeTrack === video.id}
-            onToggleSnippet={onToggleSnippet}
             delay={idx * 0.08}
           />
         ))}

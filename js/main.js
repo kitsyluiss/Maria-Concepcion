@@ -400,25 +400,7 @@ window.addEventListener('resize', () => {
   }
 });
 
-// ── 5-Second Snippet & Video Playback Controllers ──
-let activeSnippetBtn = null;
-let snippetCountdownInterval = null;
-
-function resetActiveSnippet() {
-  if (snippetCountdownInterval) {
-    clearInterval(snippetCountdownInterval);
-    snippetCountdownInterval = null;
-  }
-  if (activeSnippetBtn) {
-    activeSnippetBtn.classList.remove("is-playing");
-    const label = activeSnippetBtn.querySelector(".snippet-label");
-    const icon = activeSnippetBtn.querySelector(".play-icon");
-    if (label) label.textContent = "5s Snippet";
-    if (icon) icon.textContent = "▶";
-    activeSnippetBtn = null;
-  }
-}
-
+// ── Video Playback Controllers ──
 function closeAllVideos() {
   document.querySelectorAll(".release-card__video-player.active").forEach(player => {
     player.classList.remove("active");
@@ -451,49 +433,6 @@ document.querySelectorAll(".release-card__cover-wrap").forEach(wrap => {
   });
 });
 
-// 5-Second Snippet buttons
-document.querySelectorAll(".release-card__snippet-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const trackId = btn.dataset.track;
-
-    if (activeSnippetBtn === btn) {
-      sonic.stopAll();
-      resetActiveSnippet();
-      return;
-    }
-
-    resetActiveSnippet();
-    closeAllVideos();
-
-    let timeLeft = 5;
-    const label = btn.querySelector(".snippet-label");
-    const icon = btn.querySelector(".play-icon");
-    if (label) label.textContent = `${timeLeft}s...`;
-    if (icon) icon.textContent = "❚❚";
-    btn.classList.add("is-playing");
-    activeSnippetBtn = btn;
-
-    const started = sonic.playSnippet(trackId, 5000, () => {
-      resetActiveSnippet();
-    });
-
-    if (started) {
-      snippetCountdownInterval = setInterval(() => {
-        timeLeft -= 1;
-        if (timeLeft <= 0) {
-          clearInterval(snippetCountdownInterval);
-          snippetCountdownInterval = null;
-        } else if (label) {
-          label.textContent = `${timeLeft}s...`;
-        }
-      }, 1000);
-    } else {
-      resetActiveSnippet();
-    }
-  });
-});
-
 // Video Playback on Click
 document.querySelectorAll(".release-card__video-btn").forEach(btn => {
   btn.addEventListener("click", (e) => {
@@ -502,7 +441,6 @@ document.querySelectorAll(".release-card__video-btn").forEach(btn => {
     if (!videoId) return;
 
     sonic.stopAll();
-    resetActiveSnippet();
     closeAllVideos();
 
     const card = btn.closest(".release-card");
@@ -514,7 +452,7 @@ document.querySelectorAll(".release-card__video-btn").forEach(btn => {
     const player = card.querySelector(".release-card__video-player");
     const slot = card.querySelector(".release-card__iframe-slot");
     if (player && slot) {
-      slot.innerHTML = `<iframe src="https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="width:100%;height:100%;border:0;"></iframe>`;
+      slot.innerHTML = ;
       player.classList.add("active");
     }
   });

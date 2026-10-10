@@ -13,13 +13,9 @@ const FRICTION = 13;
 export function VideoCard({
   video,
   isOdd = false,
-  isPlayingSnippet = false,
-  onToggleSnippet,
   delay = 0,
 }) {
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
-  const [countdown, setCountdown] = useState(5);
-  const timerRef = useRef(null);
   const videoRef = useRef(null);
 
   const rafRef = useRef(null);
@@ -102,36 +98,10 @@ export function VideoCard({
   useEffect(() => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (timerRef.current) clearInterval(timerRef.current);
     };
   }, []);
 
-  // 5-second countdown handling
-  useEffect(() => {
-    if (isPlayingSnippet) {
-      setCountdown(5);
-      timerRef.current = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(timerRef.current);
-            return 5;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-      setCountdown(5);
-    }
-  }, [isPlayingSnippet]);
-
   const handleWatchVideo = () => {
-    if (isPlayingSnippet && onToggleSnippet) {
-      onToggleSnippet(video.id); // Stop snippet
-    }
     if (videoRef.current) {
       videoRef.current.pause();
     }
@@ -199,33 +169,15 @@ export function VideoCard({
           <div className="vfx-vignette-overlay" />
         </figure>
 
-        {/* Action Buttons: 5s Snippet & Watch Video */}
+        {/* Action Button: Watch Video */}
         {!isPlayingVideo && (
-          <div className="release-card__actions absolute bottom-4 right-4 z-10 flex items-center gap-2.5">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (onToggleSnippet) onToggleSnippet(video.id);
-              }}
-              className={`release-card__snippet-btn px-3.5 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider backdrop-blur-md border transition-all duration-300 flex items-center gap-1.5 ${
-                isPlayingSnippet
-                  ? 'bg-accent text-[#08080a] border-accent shadow-[0_0_15px_rgba(255,42,133,0.5)]'
-                  : 'bg-[#08080a]/85 text-foreground border-line-strong hover:border-accent hover:text-accent'
-              }`}
-              aria-label={`Play 5 second snippet of ${video.title}`}
-            >
-              <span className="play-icon text-xs leading-none">
-                {isPlayingSnippet ? '❚❚' : '▶'}
-              </span>
-              <span>{isPlayingSnippet ? `${countdown}s...` : '5s Snippet'}</span>
-            </button>
-
+          <div className="release-card__actions absolute bottom-4 right-4 z-10 flex items-center">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 handleWatchVideo();
               }}
-              className="release-card__video-btn px-3.5 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider bg-[#08080a]/85 text-foreground border border-line-strong backdrop-blur-md hover:border-accent hover:text-accent transition-all duration-300 flex items-center gap-1.5"
+              className="release-card__video-btn px-4 py-2 rounded-full font-sans text-xs font-semibold uppercase tracking-wider bg-[#08080a]/85 text-foreground border border-line-strong backdrop-blur-md hover:border-accent hover:text-accent transition-all duration-300 flex items-center gap-1.5"
               aria-label={`Watch full video of ${video.title}`}
             >
               <span className="play-icon text-xs leading-none">▶</span>

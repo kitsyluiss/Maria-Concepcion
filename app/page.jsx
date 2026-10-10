@@ -58,10 +58,7 @@ export default function HomePage() {
         <Bio />
 
         {/* Live Performance Archives & Master Repertoire (Staggered Layout) */}
-        <Videos
-          activeTrack={activeTrack}
-          onToggleSnippet={playSnippet}
-        />
+        <Videos />
 
         {/* Catalog & Tour Statistics */}
         <Stats />

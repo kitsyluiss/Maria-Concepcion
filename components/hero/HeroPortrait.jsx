@@ -94,7 +94,7 @@ export function HeroPortrait() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      className="hero__portrait-col absolute bottom-0 inset-x-0 mx-auto h-[88vh] sm:h-[90vh] lg:h-[94vh] w-[85vw] sm:w-[56vw] lg:w-[42vw] z-20 flex items-end justify-center pointer-events-auto select-none"
+      className="hero__portrait-col absolute bottom-0 inset-x-0 mx-auto h-[64vh] sm:h-[90vh] lg:h-[94vh] w-[90vw] sm:w-[56vw] lg:w-[42vw] z-20 flex items-end justify-center pointer-events-auto select-none"
     >
       {/* Hero Portrait Exception: Apply ONLY the liquid SVG distortion. No grayscale, glow sweep, or vignette */}
       <figure
